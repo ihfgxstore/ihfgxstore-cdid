@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
     <meta name="color-scheme" content="light">
     
     <title>IHFGX STORE - Joki Uang CDID</title>
@@ -95,6 +96,7 @@
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300">
 
+    <!-- HEADER / NAVBAR -->
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -107,6 +109,7 @@
                 </div>
 
                 <div class="flex items-center gap-2 md:gap-6">
+                    <!-- Navigasi Utama (Desktop) -->
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
@@ -114,17 +117,21 @@
                     </nav>
 
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
+                        <!-- Tombol Pengaturan (Gear) -->
                         <div class="relative">
                             <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
                                 <i class="fa-solid fa-gear text-lg"></i>
                             </button>
                             
+                            <!-- Dropdown Menu Pengaturan -->
                             <div id="settings-dropdown" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 z-50">
+                                <!-- Toggle Tema -->
                                 <button onclick="toggleTheme()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
                                 <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
+                                <!-- Toggle Bahasa -->
                                 <button onclick="toggleLanguage()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-langText">Bahasa</span>
                                     <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
@@ -140,6 +147,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-10">
 
+        <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl">
@@ -170,6 +178,7 @@
             </div>
         </section>
 
+        <!-- SECTION ORDER -->
         <section id="tab-order" class="hidden w-full animate-tab">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
@@ -184,6 +193,7 @@
                         </div>
 
                         <div class="space-y-6">
+                            <!-- Paket 10M -->
                             <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">10M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -192,6 +202,7 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
+                            <!-- Paket 30M -->
                             <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">30M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -200,6 +211,7 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
+                            <!-- Paket 50M -->
                             <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -208,6 +220,7 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
+                            <!-- Paket 100M -->
                             <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -216,6 +229,7 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
+                            <!-- Paket 150M -->
                             <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -241,22 +255,10 @@
                         
                         <form id="orderForm" class="space-y-4 md:space-y-5">
                             
+                            <!-- INPUT USERNAME ROBLOX -->
                             <div>
                                 <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
-                                <div class="flex gap-2">
-                                    <input type="text" id="roblox_user" required class="flex-grow px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="Username">
-                                    <button type="button" onclick="checkRobloxAvatar()" class="bg-brand-gold hover:bg-yellow-600 text-white font-bold px-4 rounded-xl text-xs md:text-sm transition-colors shadow-sm active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap min-w-[70px]">
-                                        <i class="fa-solid fa-magnifying-glass"></i> <span id="t-btnCheck">Cek</span>
-                                    </button>
-                                </div>
-                                
-                                <div id="roblox-avatar-container" class="hidden mt-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700/60 flex items-center gap-3 animate-tab">
-                                    <img id="roblox-avatar-img" src="" alt="Roblox Avatar" class="w-14 h-14 rounded-full border-2 border-brand-gold bg-white object-cover">
-                                    <div class="text-left overflow-hidden">
-                                        <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase truncate" id="t-lblAccFound">Akun Ditemukan</p>
-                                        <p id="roblox-avatar-name" class="text-sm md:text-base font-extrabold text-brand-dark dark:text-white truncate">Username</p>
-                                    </div>
-                                </div>
+                                <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="Username">
                             </div>
 
                             <div>
@@ -319,6 +321,7 @@
             </div>
         </section>
 
+        <!-- SECTION OWNER -->
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -348,6 +351,7 @@
 
     </main>
 
+    <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
             <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors">
@@ -369,8 +373,9 @@
         <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
-        /* SCRIPT 1: TABS SYSTEM (MENU PAGE) */
+        /* SCRIPT 1: TABS SYSTEM */
         function switchTab(tabId) {
             ['home', 'order', 'owner'].forEach(t => {
                 const contentDiv = document.getElementById(`tab-${t}`);
@@ -382,71 +387,37 @@
                     contentDiv.classList.add('hidden');
                 }
                 const navBtn = document.getElementById(`nav-${t}`);
-                if(navBtn) {
-                    navBtn.className = (t === tabId) ? "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" : "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
-                }
+                if(navBtn) navBtn.className = (t === tabId) ? "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" : "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
                 const navBtnMob = document.getElementById(`nav-${t}-mob`);
-                if(navBtnMob) {
-                    navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
-                }
+                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* SCRIPT 2: GEAR SETTINGS DROPDOWN */
-        function toggleSettings() {
-            document.getElementById('settings-dropdown').classList.toggle('hidden');
-        }
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('settings-dropdown');
-            const button = document.getElementById('btn-settings');
-            if (dropdown && button && !button.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add('hidden');
-            }
+        /* SCRIPT 2: GEAR SETTINGS */
+        function toggleSettings() { document.getElementById('settings-dropdown').classList.toggle('hidden'); }
+        document.addEventListener('click', function(e) {
+            const d = document.getElementById('settings-dropdown'), b = document.getElementById('btn-settings');
+            if (d && b && !b.contains(e.target) && !d.contains(e.target)) d.classList.add('hidden');
         });
 
-        /* SCRIPT 3: PRICELIST SELECTION & CUSTOM PRICE */
-        function selectDropdownPackage(valueString) {
-            const dropdown = document.getElementById('nominal_package');
-            dropdown.value = valueString;
-            toggleCustomInput();
-            dropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        /* SCRIPT 3: PRICELIST & CUSTOM */
+        function selectDropdownPackage(v) { const d = document.getElementById('nominal_package'); d.value = v; toggleCustomInput(); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         function toggleCustomInput() {
-            const packageSelect = document.getElementById('nominal_package').value;
-            const customBox = document.getElementById('custom_order_box');
-            if (packageSelect === "CUSTOM") {
-                customBox.classList.remove('hidden');
-            } else {
-                customBox.classList.add('hidden');
-                document.getElementById('custom_m_amount').value = "";
-                document.getElementById('custom_price_display').textContent = "Rp 0";
-            }
+            const p = document.getElementById('nominal_package').value, c = document.getElementById('custom_order_box');
+            c.classList.toggle('hidden', p !== "CUSTOM");
         }
         function calculateCustomPrice() {
-            const mAmount = parseInt(document.getElementById('custom_m_amount').value) || 0;
-            const totalPrice = mAmount * 900;
-            document.getElementById('custom_price_display').textContent = "Rp " + totalPrice.toLocaleString('id-ID');
+            const m = parseInt(document.getElementById('custom_m_amount').value) || 0;
+            document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* SCRIPT 4: TEMA GELAP/TERANG (DARK MODE) */
-        function updateThemeLabel() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const label = currentLang === 'id' ? (isDark ? 'Mode Terang' : 'Mode Gelap') : (isDark ? 'Light Mode' : 'Dark Mode');
-            document.getElementById('t-themeText').textContent = label;
-        }
+        /* SCRIPT 4: THEME */
         function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon text-gray-500';
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.add('dark');
-                icon.className = 'fa-solid fa-sun text-gray-500';
-                localStorage.setItem('theme', 'dark');
-            }
+            const h = document.documentElement, i = document.getElementById('theme-icon');
+            h.classList.toggle('dark');
+            i.className = h.classList.contains('dark') ? 'fa-solid fa-sun text-gray-500' : 'fa-solid fa-moon text-gray-500';
+            localStorage.setItem('theme', h.classList.contains('dark') ? 'dark' : 'light');
             updateThemeLabel();
             document.getElementById('settings-dropdown').classList.add('hidden');
         }
@@ -455,124 +426,52 @@
             document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
         }
 
-        /* SCRIPT 5: PENGECEK AVATAR ROBLOX (FIXED CORS VIA ASHCON API) */
-        function checkRobloxAvatar() {
-            const username = document.getElementById('roblox_user').value.trim();
-            const container = document.getElementById('roblox-avatar-container'); // Fixed Typo
-            const img = document.getElementById('roblox-avatar-img');
-            const nameLabel = document.getElementById('roblox-avatar-name');
-            const btnCheck = document.getElementById('t-btnCheck');
-            const t = dict[currentLang];
-
-            if (!username) {
-                alert(t.errUser);
-                return;
-            }
-
-            // Ubah teks tombol menjadi status loading
-            btnCheck.textContent = currentLang === 'id' ? 'Memuat...' : 'Loading...';
-
-            // Fetch via Ashcon API (Bypass CORS & Get Avatar langsung dalam 1 Request)
-            fetch(`https://api.ashcon.app/roblox/v1/user/${encodeURIComponent(username)}`)
-                .then(res => {
-                    if (!res.ok) throw new Error('User not found');
-                    return res.json();
-                })
-                .then(data => {
-                    img.src = data.avatar.headshot;
-                    nameLabel.textContent = data.username;
-                    container.classList.remove('hidden');
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert(currentLang === 'id' ? 'Username tidak ditemukan / Gagal terhubung. Cek kembali ejaannya.' : 'Username not found / Connection failed. Check spelling.');
-                    container.classList.add('hidden');
-                })
-                .finally(() => {
-                    // Kembalikan teks tombol
-                    btnCheck.textContent = currentLang === 'id' ? 'Cek' : 'Check';
-                });
-        }
-
-        /* SCRIPT 6: LANGUAGE SWITCHER MULTI-BAHASA */
+        /* SCRIPT 5: LANGUAGE SWITCHER */
         let currentLang = 'id';
         const dict = {
             id: {
-                langIcon: '🇮🇩', langText: 'ID', langMenuText: 'Bahasa',
+                themeText: 'Mode Gelap', langText: 'Bahasa',
                 subtitle: 'Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.',
-                orderNow: 'Yuk, Order Sekarang!',
-                followIg: 'Follow Instagram Kami',
+                orderNow: 'Yuk, Order Sekarang!', followIg: 'Follow Instagram Kami',
                 bonusInfo: 'Setiap pembelian terdapat bonus yang besar.',
                 bonusWarn: '(Orderan dibawah 20K tidak mendapatkan bonus.)',
-                formTitle: 'FORMULIR PEMBELIAN JOKI',
-                lblUser: 'Username Roblox :',
-                lbl2fa: 'Verifikasi 2 Langkah (2FA) :',
-                lblActive: 'Aktif (Iya)',
-                lblInactive: 'Tidak Aktif',
-                lblWa: 'Nomor WhatsApp Aktif :',
-                lblPack: 'Pilih Nominal Paket Joki :',
-                optCustom: 'Custom Order',
-                lblCustom: 'Masukkan Jumlah Nominal Custom (M) :',
-                lblTotal: 'Total Harga:',
-                lblPay: 'Metode Pembayaran Utama :',
+                formTitle: 'FORMULIR PEMBELIAN JOKI', lblUser: 'Username Roblox :',
+                lbl2fa: 'Verifikasi 2 Langkah (2FA) :', lblActive: 'Aktif (Iya)', lblInactive: 'Tidak Aktif',
+                lblWa: 'Nomor WhatsApp Aktif :', lblPack: 'Pilih Nominal Paket Joki :', optCustom: 'Custom Order',
+                lblCustom: 'Masukkan Jumlah Nominal Custom (M) :', lblTotal: 'Total Harga:', lblPay: 'Metode Pembayaran Utama :',
                 btnSend: 'KIRIM ORDER SEKARANG',
-                btnCheck: 'Cek',
-                lblAccFound: 'Akun Ditemukan',
-                errUser: 'Mohon isi Username Roblox Anda terlebih dahulu!',
-                err2fa: 'Mohon pilih status Verifikasi 2 Langkah (2FA) aktif atau tidak!',
-                errWa: 'Mohon isi Nomor WhatsApp Anda terlebih dahulu!',
-                errCustom: 'Silakan masukkan jumlah nominal custom M yang valid!',
-                waInvoice: '*IHFGX STORE — INVOICE ORDER JOKI*',
-                waUser: '👤 Username Roblox :',
-                wa2fa: '🔐 2-Step Verif     :',
-                waPack: '📦 Paket Nominal    :',
-                waTotal: '💳 Total Pembayaran :',
-                waPay: '💰 Metode Bayar     :',
-                waNo: '📱 No. WhatsApp     :',
-                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor rekeningnya ya min, terima kasih!'
+                errUser: 'Mohon isi Username Roblox!', err2fa: 'Pilih status 2FA!', errWa: 'Isi Nomor WA!', errCustom: 'Masukkan M yang valid!',
+                waInvoice: '*IHFGX STORE — INVOICE ORDER JOKI*', waUser: '👤 Username Roblox :', wa2fa: '🔐 2-Step Verif     :', waPack: '📦 Paket Nominal    :', waTotal: '💳 Total Pembayaran :', waPay: '💰 Metode Bayar     :', waNo: '📱 No. WhatsApp     :',
+                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor pembayarannya ya min, terima kasih!'
             },
             en: {
-                langIcon: '🇺🇸', langText: 'EN', langMenuText: 'Language',
+                themeText: 'Dark Mode', langText: 'Language',
                 subtitle: 'The fastest and safest solution for your CDID money needs.',
-                orderNow: 'Order Now!',
-                followIg: 'Follow Our Instagram',
+                orderNow: 'Order Now!', followIg: 'Follow Our Instagram',
                 bonusInfo: 'Every purchase includes a huge bonus.',
                 bonusWarn: '(Orders under 20K do not get a bonus.)',
-                formTitle: 'JOKI ORDER FORM',
-                lblUser: 'Roblox Username :',
-                lbl2fa: '2-Step Verification (2FA) :',
-                lblActive: 'Active (Yes)',
-                lblInactive: 'Inactive',
-                lblWa: 'Active WhatsApp Number :',
-                lblPack: 'Select Joki Package :',
-                optCustom: 'Custom Order',
-                lblCustom: 'Enter Custom Amount (M) :',
-                lblTotal: 'Total Price:',
-                lblPay: 'Primary Payment Method :',
+                formTitle: 'JOKI ORDER FORM', lblUser: 'Roblox Username :',
+                lbl2fa: '2-Step Verification (2FA) :', lblActive: 'Active (Yes)', lblInactive: 'Inactive',
+                lblWa: 'Active WhatsApp Number :', lblPack: 'Select Joki Package :', optCustom: 'Custom Order',
+                lblCustom: 'Enter Custom Amount (M) :', lblTotal: 'Total Price:', lblPay: 'Primary Payment Method :',
                 btnSend: 'SEND ORDER NOW',
-                btnCheck: 'Check',
-                lblAccFound: 'Account Found',
-                errUser: 'Please enter your Roblox Username first!',
-                err2fa: 'Please select 2-Step Verification (2FA) status!',
-                errWa: 'Please enter your WhatsApp Number first!',
-                errCustom: 'Please enter a valid custom amount!',
-                waInvoice: '*IHFGX STORE — JOKI ORDER INVOICE*',
-                waUser: '👤 Roblox Username :',
-                wa2fa: '🔐 2-Step Verif     :',
-                waPack: '📦 Package Nominal  :',
-                waTotal: '💳 Total Payment    :',
-                waPay: '💰 Payment Method   :',
-                waNo: '📱 WhatsApp No.     :',
-                waFooter: 'Please process the order and provide the bank account details, thank you!'
+                errUser: 'Please enter Roblox Username!', err2fa: 'Please select 2FA status!', errWa: 'Please enter WhatsApp!', errCustom: 'Please enter a valid amount!',
+                waInvoice: '*IHFGX STORE — JOKI ORDER INVOICE*', waUser: '👤 Roblox Username :', wa2fa: '🔐 2-Step Verif     :', waPack: '📦 Package Nominal  :', waTotal: '💳 Total Payment    :', waPay: '💰 Payment Method   :', waNo: '📱 WhatsApp No.     :',
+                waFooter: 'Please process the order and provide the payment details, thank you!'
             }
         };
+
+        function updateThemeLabel() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('t-themeText').textContent = currentLang === 'id' ? (isDark ? 'Mode Terang' : 'Mode Gelap') : (isDark ? 'Light Mode' : 'Dark Mode');
+        }
 
         function toggleLanguage() {
             currentLang = currentLang === 'id' ? 'en' : 'id';
             const t = dict[currentLang];
-            document.getElementById('lang-icon').textContent = t.langIcon;
-            document.getElementById('lang-code').textContent = t.langText;
-            document.getElementById('t-langText').textContent = t.langMenuText;
+            document.getElementById('lang-icon').textContent = currentLang === 'id' ? '🇮🇩' : '🇺🇸';
+            document.getElementById('lang-code').textContent = currentLang === 'id' ? 'ID' : 'EN';
+            document.getElementById('t-langText').textContent = t.langText;
             document.getElementById('t-subtitle').textContent = t.subtitle;
             document.getElementById('t-orderNow').textContent = t.orderNow;
             document.getElementById('t-followIg').textContent = t.followIg;
@@ -590,17 +489,15 @@
             document.getElementById('t-lblTotal').textContent = t.lblTotal;
             document.getElementById('t-lblPay').textContent = t.lblPay;
             document.getElementById('t-btnSend').textContent = t.btnSend;
-            document.getElementById('t-btnCheck').textContent = t.btnCheck;
-            document.getElementById('t-lblAccFound').textContent = t.lblAccFound;
-            document.getElementById('roblox_user').placeholder = currentLang === 'id' ? 'Username' : 'Username';
+            document.getElementById('roblox_user').placeholder = 'Username';
             updateThemeLabel();
             document.getElementById('settings-dropdown').classList.add('hidden');
         }
         updateThemeLabel();
 
-        /* SCRIPT 7: WHATSAPP SUBMIT HANDLER */
+        /* SCRIPT 6: WHATSAPP SUBMIT */
         function sendOrderToWhatsApp() {
-            const adminWhatsAppNumber = "6289520862464"; 
+            const adminWhatsAppNumber = "628133739151"; 
             const t = dict[currentLang]; 
             const username = document.getElementById('roblox_user').value.trim();
             const v2step = document.querySelector('input[name="v2step"]:checked');
@@ -608,32 +505,20 @@
             const packageValue = document.getElementById('nominal_package').value;
             const payment = document.getElementById('payment_method').value;
             
-            if (!username) { alert(t.errUser); document.getElementById('roblox_user').focus(); return; }
+            if (!username) { alert(t.errUser); return; }
             if (!v2step) { alert(t.err2fa); return; }
-            if (!clientWa) { alert(t.errWa); document.getElementById('client_wa').focus(); return; }
+            if (!clientWa) { alert(t.errWa); return; }
 
-            let selectedNominal = "";
-            let selectedPrice = 0;
+            let selectedNominal = packageValue === "CUSTOM" ? (document.getElementById('custom_m_amount').value + "M (Custom)") : packageValue.split('|')[0];
+            let selectedPrice = packageValue === "CUSTOM" ? (document.getElementById('custom_m_amount').value * 900) : packageValue.split('|')[1];
 
-            if (packageValue === "CUSTOM") {
-                const customM = parseInt(document.getElementById('custom_m_amount').value) || 0;
-                if (customM <= 0) { alert(t.errCustom); document.getElementById('custom_m_amount').focus(); return; }
-                selectedNominal = customM + "M (Custom Order)";
-                selectedPrice = customM * 900;
-            } else {
-                const parts = packageValue.split('|');
-                selectedNominal = parts[0];
-                selectedPrice = parseInt(parts[1]);
-            }
-
-            const activeText = v2step.value === 'Aktif' ? t.lblActive : t.lblInactive;
             const messageText = encodeURIComponent(
                 `${t.waInvoice}\n` +
                 `------------------------------------\n` +
                 `${t.waUser} ${username}\n` +
-                `${t.wa2fa} ${activeText}\n` +
+                `${t.wa2fa} ${v2step.value}\n` +
                 `${t.waPack} ${selectedNominal}\n` +
-                `${t.waTotal} Rp ${selectedPrice.toLocaleString('id-ID')}\n` +
+                `${t.waTotal} Rp ${parseInt(selectedPrice).toLocaleString('id-ID')}\n` +
                 `${t.waPay} ${payment}\n` +
                 `${t.waNo} ${clientWa}\n` +
                 `------------------------------------\n` +
@@ -644,3 +529,4 @@
     </script>
 </body>
 </html>
+
