@@ -217,7 +217,7 @@
                                 </div>
                             </div>
                             <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">150M</div>
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">135K</span>
@@ -237,7 +237,7 @@
 
                 <div class="lg:col-span-5 w-full">
                     <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative transition-colors duration-300">
-                        <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
+                        <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
                         
                         <form id="orderForm" class="space-y-4 md:space-y-5">
                             
@@ -245,15 +245,15 @@
                                 <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
                                 <div class="flex gap-2">
                                     <input type="text" id="roblox_user" required class="flex-grow px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="Username">
-                                    <button type="button" onclick="checkRobloxAvatar()" class="bg-brand-gold hover:bg-yellow-600 text-white font-bold px-4 rounded-xl text-xs md:text-sm transition-colors shadow-sm active:scale-95">
+                                    <button type="button" onclick="checkRobloxAvatar()" class="bg-brand-gold hover:bg-yellow-600 text-white font-bold px-4 rounded-xl text-xs md:text-sm transition-colors shadow-sm active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap min-w-[70px]">
                                         <i class="fa-solid fa-magnifying-glass"></i> <span id="t-btnCheck">Cek</span>
                                     </button>
                                 </div>
                                 
                                 <div id="roblox-avatar-container" class="hidden mt-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700/60 flex items-center gap-3 animate-tab">
                                     <img id="roblox-avatar-img" src="" alt="Roblox Avatar" class="w-14 h-14 rounded-full border-2 border-brand-gold bg-white object-cover">
-                                    <div class="text-left">
-                                        <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase" id="t-lblAccFound">Akun Ditemukan</p>
+                                    <div class="text-left overflow-hidden">
+                                        <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase truncate" id="t-lblAccFound">Akun Ditemukan</p>
                                         <p id="roblox-avatar-name" class="text-sm md:text-base font-extrabold text-brand-dark dark:text-white truncate">Username</p>
                                     </div>
                                 </div>
@@ -455,10 +455,10 @@
             document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
         }
 
-        /* SCRIPT 5: PENGECEK AVATAR ROBLOX (FITUR BARU) */
+        /* SCRIPT 5: PENGECEK AVATAR ROBLOX (FIXED CORS VIA ASHCON API) */
         function checkRobloxAvatar() {
             const username = document.getElementById('roblox_user').value.trim();
-            const container = document.getElementById('roblox_avatar-container');
+            const container = document.getElementById('roblox-avatar-container'); // Fixed Typo
             const img = document.getElementById('roblox-avatar-img');
             const nameLabel = document.getElementById('roblox-avatar-name');
             const btnCheck = document.getElementById('t-btnCheck');
@@ -469,41 +469,27 @@
                 return;
             }
 
-            // Ganti tombol jadi loading teks
-            const originalBtnText = btnCheck.parentNode.innerHTML;
+            // Ubah teks tombol menjadi status loading
             btnCheck.textContent = currentLang === 'id' ? 'Memuat...' : 'Loading...';
 
-            // Tahap 1: Ubah username menjadi User ID via proxy CORS gratis (karena API Roblox butuh proxy di static web)
-            fetch(`https://users.roblox.com/v1/users/search?keyword=${encodeURIComponent(username)}&limit=1`)
-                .then(res => res.json())
+            // Fetch via Ashcon API (Bypass CORS & Get Avatar langsung dalam 1 Request)
+            fetch(`https://api.ashcon.app/roblox/v1/user/${encodeURIComponent(username)}`)
+                .then(res => {
+                    if (!res.ok) throw new Error('User not found');
+                    return res.json();
+                })
                 .then(data => {
-                    if (data && data.data && data.data.length > 0) {
-                        const userId = data.data[0].id;
-                        const verifiedName = data.data[0].name;
-
-                        // Tahap 2: Ambil gambar kepala avatar menggunakan User ID
-                        return fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`)
-                            .then(res => res.json())
-                            .then(thumbData => {
-                                if (thumbData && thumbData.data && thumbData.data.length > 0) {
-                                    const imgUrl = thumbData.data[0].imageUrl;
-                                    
-                                    // Munculkan kontainer avatar ke layar
-                                    img.src = imgUrl;
-                                    nameLabel.textContent = verifiedName;
-                                    container.classList.remove('hidden');
-                                }
-                            });
-                    } else {
-                        alert(currentLang === 'id' ? 'Username tidak ditemukan! Cek kembali ejaannya.' : 'Username not found! Check spelling.');
-                        container.classList.add('hidden');
-                    }
+                    img.src = data.avatar.headshot;
+                    nameLabel.textContent = data.username;
+                    container.classList.remove('hidden');
                 })
                 .catch(err => {
                     console.error(err);
-                    alert(currentLang === 'id' ? 'Gagal terhubung ke API Roblox. Silakan kirim order manual.' : 'Failed to connect to Roblox API. Proceed to order manually.');
+                    alert(currentLang === 'id' ? 'Username tidak ditemukan / Gagal terhubung. Cek kembali ejaannya.' : 'Username not found / Connection failed. Check spelling.');
+                    container.classList.add('hidden');
                 })
                 .finally(() => {
+                    // Kembalikan teks tombol
                     btnCheck.textContent = currentLang === 'id' ? 'Cek' : 'Check';
                 });
         }
@@ -520,7 +506,7 @@
                 bonusWarn: '(Orderan dibawah 20K tidak mendapatkan bonus.)',
                 formTitle: 'FORMULIR PEMBELIAN JOKI',
                 lblUser: 'Username Roblox :',
-                lbl2fa: 'Verifikasi 2 Langkah (2FA) : Bars',
+                lbl2fa: 'Verifikasi 2 Langkah (2FA) :',
                 lblActive: 'Aktif (Iya)',
                 lblInactive: 'Tidak Aktif',
                 lblWa: 'Nomor WhatsApp Aktif :',
