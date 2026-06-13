@@ -41,7 +41,13 @@
             color: #111315;
             font-weight: 700;
         }
-        /* Efek Bintang Halus untuk Section Owner */
+        
+        /* Animasi Bintang Bergerak */
+        @keyframes moveStars {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+        
         .stars-bg {
             background-color: #0b0714;
             background-image: 
@@ -53,6 +59,7 @@
                 radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 200px 200px;
+            animation: moveStars 8s linear infinite; /* Kecepatan dan loop animasi */
         }
     </style>
 </head>
@@ -242,16 +249,16 @@
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
                     <div class="space-y-3 text-left">
-                        <p class="text-lg md:text-xl font-semibold text-gray-300">Hello 👋, Saya</p>
                         <h1 class="text-5xl md:text-6xl font-black text-white tracking-wide">Hapiss</h1>
                         <div class="space-y-1 mt-4">
-                            <p class="text-sm md:text-base text-gray-400">UI/UIX Designer</p>
+                            <p class="text-sm md:text-base text-gray-400">UI/UX Designer</p>
                             <p class="text-sm md:text-base text-gray-400">15 yo</p>
                         </div>
-                        <div class="flex items-center gap-5 pt-6">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-tiktok text-2xl"></i></a>
+                        <div class="flex items-center gap-3 pt-6">
+                            <a href="https://instagram.com/hpissnc_" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="fa-brands fa-instagram text-2xl"></i>
+                                <span class="font-medium">hpissnc_</span>
+                            </a>
                         </div>
                     </div>
 
