@@ -78,7 +78,6 @@
     </header>
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl">
@@ -89,7 +88,6 @@
                     <h1 class="font-heading font-extrabold text-5xl tracking-widest text-brand-dark mt-6">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 uppercase text-lg mt-1">STORE</p>
                 </div>
-
                 <div class="px-4">
                     <p class="text-gray-600 font-medium text-sm md:text-base leading-relaxed">
                         Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.<br>
@@ -98,7 +96,6 @@
                         </span>
                     </p>
                 </div>
-
                 <div class="flex w-full justify-center px-6 sm:px-0 pt-2">
                     <a href="https://instagram.com/ihfgxstore.cdid" target="_blank" class="inline-flex items-center justify-center gap-3 bg-brand-dark text-brand-goldLight hover:text-white font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 text-sm md:text-base border border-gray-800 w-full sm:w-auto">
                         <i class="fa-brands fa-instagram text-xl text-brand-gold"></i>
@@ -122,17 +119,40 @@
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3"><span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">9K</span><div class="w-6 h-6 rounded border-2 border-brand-gold flex items-center justify-center bg-brand-goldLight group-hover:bg-brand-gold"><i class="fa-solid fa-check text-xs text-brand-gold group-hover:text-white"></i></div></div>
                             </div>
+                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 cursor-pointer group">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">30M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 mx-4 relative top-1"></div>
+                                <div class="flex items-center gap-3"><span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">27K</span><div class="w-6 h-6 rounded border-2 border-brand-gold flex items-center justify-center bg-brand-goldLight group-hover:bg-brand-gold"><i class="fa-solid fa-check text-xs text-brand-gold group-hover:text-white"></i></div></div>
                             </div>
+                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 cursor-pointer group">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">50M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 mx-4 relative top-1"></div>
+                                <div class="flex items-center gap-3"><span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">45K</span><div class="w-6 h-6 rounded border-2 border-brand-gold flex items-center justify-center bg-brand-goldLight group-hover:bg-brand-gold"><i class="fa-solid fa-check text-xs text-brand-gold group-hover:text-white"></i></div></div>
+                            </div>
+                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 cursor-pointer group">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">100M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 mx-4 relative top-1"></div>
+                                <div class="flex items-center gap-3"><span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">90K</span><div class="w-6 h-6 rounded border-2 border-brand-gold flex items-center justify-center bg-brand-goldLight group-hover:bg-brand-gold"><i class="fa-solid fa-check text-xs text-brand-gold group-hover:text-white"></i></div></div>
+                            </div>
+                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 cursor-pointer group">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">150M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 mx-4 relative top-1"></div>
+                                <div class="flex items-center gap-3"><span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark tracking-wide">135K</span><div class="w-6 h-6 rounded border-2 border-brand-gold flex items-center justify-center bg-brand-goldLight group-hover:bg-brand-gold"><i class="fa-solid fa-check text-xs text-brand-gold group-hover:text-white"></i></div></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="lg:col-span-5 w-full">
                     <div class="bg-white rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative">
                         <h2 class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark text-center tracking-wider mb-6 pb-4 border-b">FORMULIR PEMBELIAN JOKI</h2>
-                        <form id="orderForm" class="space-y-4">
-                            <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-extrabold py-3.5 px-6 rounded-2xl transition-all shadow-md active:scale-[0.98] flex items-center justify-center gap-2">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> KIRIM ORDER SEKARANG
-                            </button>
+                        <form id="orderForm" class="space-y-4 md:space-y-5">
+                            <div><label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Username Roblox :</label><input type="text" id="roblox_user" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Masukkan Username Anda"></div>
+                            <div><label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Verifikasi 2 Langkah (2FA) :</label><div class="flex gap-3"><label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold bg-gray-50/50"><input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold"><span class="ml-2 font-medium text-sm md:text-base text-gray-700">Aktif</span></label><label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold bg-gray-50/50"><input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold"><span class="ml-2 font-medium text-sm md:text-base text-gray-700">Tidak</span></label></div></div>
+                            <div><label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Nomor WhatsApp Aktif :</label><input type="tel" id="client_wa" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Contoh: 081234567890"></div>
+                            <div><label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Pilih Nominal Paket Joki :</label><select id="nominal_package" onchange="toggleCustomInput()" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50 font-semibold text-sm md:text-base"><option value="10M|9000">10M — Rp 9.000</option><option value="30M|27000">30M — Rp 27.000</option><option value="50M|45000">50M — Rp 45.000</option><option value="100M|90000">100M — Rp 90.000</option><option value="150M|135000">150M — Rp 135.000</option><option value="CUSTOM">Custom Order</option></select></div>
+                            <div id="custom_order_box" class="hidden p-4 rounded-2xl bg-brand-goldLight/40 border border-brand-gold/30 space-y-3"><label class="block text-xs md:text-sm font-bold text-brand-dark">Jumlah M :</label><input type="number" id="custom_m_amount" min="1" oninput="calculateCustomPrice()" class="w-full px-4 py-2 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold font-extrabold text-base text-center" placeholder="Jumlah M"></div>
+                            <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-extrabold py-3.5 px-6 rounded-2xl transition-all shadow-md active:scale-[0.98] flex items-center justify-center gap-2 mt-4"><i class="fa-brands fa-whatsapp text-xl"></i> KIRIM ORDER SEKARANG</button>
                         </form>
                     </div>
                 </div>
@@ -155,25 +175,30 @@
         </section>
     </main>
 
+    <footer class="bg-white border-t border-gray-100 py-6"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p></div></footer>
+
     <script>
         function switchTab(tabId) {
             ['home', 'order', 'owner'].forEach(t => {
                 const navBtn = document.getElementById(`nav-${t}`);
                 const contentDiv = document.getElementById(`tab-${t}`);
-                if (t === tabId) {
-                    navBtn.className = "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
-                    contentDiv.classList.remove('hidden'); contentDiv.classList.add('block');
-                } else {
-                    navBtn.className = "text-gray-500 hover:text-brand-dark py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
-                    contentDiv.classList.remove('block'); contentDiv.classList.add('hidden');
-                }
+                if (t === tabId) { navBtn.className = "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200"; contentDiv.classList.remove('hidden'); contentDiv.classList.add('block'); }
+                else { navBtn.className = "text-gray-500 hover:text-brand-dark py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200"; contentDiv.classList.remove('block'); contentDiv.classList.add('hidden'); }
             });
         }
-        
-        // PENTING: Update nomor WA Admin di sini
+        function selectDropdownPackage(v) { const d = document.getElementById('nominal_package'); d.value = v; toggleCustomInput(); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        function toggleCustomInput() { const p = document.getElementById('nominal_package').value; document.getElementById('custom_order_box').className = p === "CUSTOM" ? "p-4 rounded-2xl bg-brand-goldLight/40 border border-brand-gold/30 space-y-3" : "hidden"; }
+        function calculateCustomPrice() { const m = parseInt(document.getElementById('custom_m_amount').value) || 0; document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID'); }
         function sendOrderToWhatsApp() {
-            const adminWhatsAppNumber = "6289520862464"; 
-            // ... (sisa logika form tetap sama)
+            const adminWhatsAppNumber = "089520862464"; 
+            const user = document.getElementById('roblox_user').value.trim();
+            const v2 = document.querySelector('input[name="v2step"]:checked');
+            const wa = document.getElementById('client_wa').value.trim();
+            const p = document.getElementById('nominal_package').value;
+            if (!user || !v2 || !wa) { alert("Mohon lengkapi semua data!"); return; }
+            let nom = p === "CUSTOM" ? (document.getElementById('custom_m_amount').value + "M") : p.split('|')[0];
+            const msg = encodeURIComponent(`*IHFGX STORE — INVOICE*\n👤 User: ${user}\n🔐 2FA: ${v2.value}\n📦 Paket: ${nom}\n📱 WA: ${wa}`);
+            window.open(`https://wa.me/${adminWhatsAppNumber}?text=${msg}`, '_blank');
         }
     </script>
 </body>
