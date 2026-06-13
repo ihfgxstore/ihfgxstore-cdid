@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
+    <meta name="color-scheme" content="light">
+    
     <title>IHFGX STORE - Joki Uang CDID</title>
 
     <meta name="description" content="Pusat Joki Uang CDID Terpercaya, Tercepat, dan 100% Aman. Yuk order sekarang!">
@@ -21,6 +24,7 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class', // Mengaktifkan Manual Dark Mode via Class
             theme: {
                 extend: {
                     colors: {
@@ -29,11 +33,540 @@
                             dark: '#111315',
                             gold: '#C5A880',
                             goldLight: '#F5EFEB',
-                            accent: '#2DD4BF'
+                            accent: '#2DD4BF',
+                            darkBg: '#0b0c10', // Warna background saat dark mode
+                            darkCard: '#15171e' // Warna card saat dark mode
                         }
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-border-glow {
+            border: 2px solid #C5A880;
+            box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
+        }
+        
+        .tab-active {
+            border-bottom: 3px solid #111315;
+            color: #111315;
+            font-weight: 700;
+        }
+        
+        /* CSS Khusus Mode Gelap untuk Navigasi Aktif */
+        .dark .tab-active {
+            border-bottom: 3px solid #ffffff;
+            color: #ffffff;
+        }
+        
+        /* Animasi Bintang Bergerak */
+        @keyframes moveStars {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+        
+        .stars-bg {
+            background-color: #0b0714;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: moveStars 8s linear infinite; 
+        }
+
+        /* Animasi Transisi Perpindahan Halaman */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-tab {
+            animation: fadeSlideUp 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg overflow-hidden">
+                        <img src="https://drive.google.com/thumbnail?sz=w100&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Small" class="w-8 h-8 object-contain">
+                    </div>
+                    <span class="font-heading font-extrabold text-xl tracking-wider text-brand-dark dark:text-white transition-colors">IHFGX STORE</span>
+                </div>
+
+                <div class="flex items-center gap-2 md:gap-6">
+                    <!-- Navigasi Utama -->
+                    <nav class="hidden md:flex space-x-8">
+                        <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
+                        <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
+                        <button id="nav-owner" onclick="switchTab('owner')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">OWNER</button>
+                    </nav>
+
+                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
+                        <!-- Theme Switcher (Dark/Light Mode) -->
+                        <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300">
+                            <i id="theme-icon" class="fa-solid fa-moon"></i>
+                        </button>
+                        
+                        <!-- Language Switcher -->
+                        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-brand-gold/10 hover:text-brand-gold transition-colors font-bold text-sm text-gray-700 dark:text-gray-200 border border-transparent">
+                            <span id="lang-icon" class="text-lg leading-none">🇮🇩</span> 
+                            <span id="lang-text" class="mt-0.5">ID</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- SECTION HOME -->
+        <section id="tab-home" class="block w-full animate-tab">
+            <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12">
+                <div class="relative flex flex-col items-center p-6 rounded-3xl">
+                    <div class="relative">
+                        <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
+                        <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-56 h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
+                    </div>
+                    
+                    <h1 class="font-heading font-extrabold text-5xl tracking-widest text-brand-dark dark:text-white transition-colors mt-6">IHFGX</h1>
+                    <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
+                </div>
+
+                <div class="px-4">
+                    <p class="text-gray-600 dark:text-gray-300 font-medium text-sm md:text-base leading-relaxed transition-colors">
+                        <span id="t-subtitle">Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.</span><br>
+                        <span class="text-brand-dark dark:text-white font-extrabold cursor-pointer hover:text-brand-gold dark:hover:text-brand-gold transition-colors inline-flex items-center gap-1 mt-1" onclick="switchTab('order')">
+                            <span id="t-orderNow">Yuk, Order Sekarang!</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="flex w-full justify-center px-6 sm:px-0 pt-2">
+                    <a href="https://instagram.com/ihfgxstore.cdid" target="_blank" class="inline-flex items-center justify-center gap-3 bg-brand-dark dark:bg-white text-brand-goldLight dark:text-brand-dark hover:opacity-90 font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 text-sm md:text-base w-full sm:w-auto">
+                        <i class="fa-brands fa-instagram text-xl text-brand-gold"></i>
+                        <span id="t-followIg">Follow Instagram Kami</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION ORDER -->
+        <section id="tab-order" class="hidden w-full animate-tab">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
+                
+                <div class="lg:col-span-7 w-full">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 gold-border-glow relative hover:shadow-xl transition-all duration-300">
+                        <div class="text-center mb-10 border-b border-brand-gold/20 dark:border-gray-700 pb-10 transition-colors">
+                            <span class="inline-block bg-brand-goldLight dark:bg-brand-gold/10 text-brand-gold font-bold tracking-widest text-xs md:text-sm px-6 py-2 rounded-full uppercase border border-brand-gold/20 shadow-inner">PRICELIST</span>
+                            <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-brand-dark dark:text-white mt-4 tracking-wider transition-colors">JOKI UANG CDID</h2>
+                            <div class="mt-3">
+                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm">900P = 1M</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Paket 10M -->
+                            <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">10M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">9K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <!-- Paket 30M -->
+                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">30M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">27K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <!-- Paket 50M -->
+                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">45K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <!-- Paket 100M -->
+                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">90K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <!-- Paket 150M -->
+                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">135K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 pt-6 border-t border-brand-gold/20 dark:border-gray-700 text-center transition-colors">
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400 font-semibold leading-relaxed transition-colors">
+                                <span id="t-bonusInfo">Setiap pembelian terdapat bonus yang besar.</span><br>
+                                <span class="text-red-500 dark:text-red-400 font-medium" id="t-bonusWarn">(Orderan dibawah 20K tidak mendapatkan bonus.)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 w-full">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative transition-colors duration-300">
+                        <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
+                        
+                        <form id="orderForm" class="space-y-4 md:space-y-5">
+                            <div>
+                                <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
+                                <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="Username">
+                            </div>
+
+                            <div>
+                                <label id="t-lbl2fa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Verifikasi 2 Langkah (2FA) :</label>
+                                <div class="flex gap-3">
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all bg-gray-50/50 dark:bg-gray-800">
+                                        <input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
+                                        <span id="t-lblActive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Aktif (Iya)</span>
+                                    </label>
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all bg-gray-50/50 dark:bg-gray-800">
+                                        <input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
+                                        <span id="t-lblInactive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Tidak Aktif</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label id="t-lblWa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Nomor WhatsApp Aktif :</label>
+                                <input type="tel" id="client_wa" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="081234567890">
+                            </div>
+
+                            <div>
+                                <label id="t-lblPack" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Pilih Nominal Paket Joki :</label>
+                                <select id="nominal_package" onchange="toggleCustomInput()" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 dark:text-white font-semibold text-sm md:text-base transition-colors">
+                                    <option value="10M|9000">10M — Rp 9.000</option>
+                                    <option value="30M|27000">30M — Rp 27.000</option>
+                                    <option value="50M|45000">50M — Rp 45.000</option>
+                                    <option value="100M|90000">100M — Rp 90.000</option>
+                                    <option value="150M|135000">150M — Rp 135.000</option>
+                                    <option value="CUSTOM" id="opt-custom">Custom Order</option>
+                                </select>
+                            </div>
+
+                            <div id="custom_order_box" class="hidden p-4 rounded-2xl bg-brand-goldLight/40 dark:bg-brand-gold/5 border border-brand-gold/30 dark:border-brand-gold/20 space-y-3 transition-colors">
+                                <label id="t-lblCustom" class="block text-xs md:text-sm font-bold text-brand-dark dark:text-brand-goldLight">Masukkan Jumlah Nominal Custom (M) :</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" id="custom_m_amount" min="1" oninput="calculateCustomPrice()" class="w-full px-4 py-2 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold bg-white dark:bg-gray-800 dark:text-white font-extrabold text-base text-center transition-colors" placeholder="10">
+                                    <span class="font-bold text-lg text-gray-700 dark:text-gray-300">M</span>
+                                </div>
+                                <div class="text-right font-bold text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                                    <span id="t-lblTotal">Total Harga:</span> <span id="custom_price_display" class="font-extrabold text-sm md:text-base text-red-600 dark:text-red-400">Rp 0</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label id="t-lblPay" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Metode Pembayaran Utama :</label>
+                                <select id="payment_method" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 dark:text-white font-semibold text-sm md:text-base transition-colors">
+                                    <option value="QRIS">QRIS</option>
+                                    <option value="DANA/GOPAY">DANA / GOPAY</option>
+                                </select>
+                            </div>
+
+                            <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-extrabold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-2 mt-2 text-sm md:text-base">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span id="t-btnSend">KIRIM ORDER SEKARANG</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION OWNER -->
+        <section id="tab-owner" class="hidden w-full animate-tab">
+            <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="space-y-3 text-left">
+                        <h1 class="text-5xl md:text-6xl font-black text-white tracking-wide">Hapiss</h1>
+                        <div class="space-y-1 mt-4">
+                            <p class="text-sm md:text-base text-gray-400">UI/UX Designer</p>
+                            <p class="text-sm md:text-base text-gray-400">Website Developer</p>
+                            <p class="text-sm md:text-base text-gray-400">15 yo</p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-6">
+                            <a href="https://instagram.com/hpissnc_" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                                <i class="fa-brands fa-instagram text-2xl"></i>
+                                <span class="font-medium">hpissnc_</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center md:justify-end">
+                        <div class="w-64 h-64 md:w-72 md:h-72 bg-[#9D34F0] rounded-[3rem] flex items-center justify-center shadow-lg relative overflow-hidden border-4 border-purple-500/20">
+                            <i class="fa-solid fa-user-secret text-[8rem] md:text-[10rem] text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-bg dark:bg-brand-darkBg border-t border-gray-100 dark:border-gray-800 py-6 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- BAGIAN JAVASCRIPT LENGKAP -->
+    <script>
+        /* SCRIPT 1: TAMPILAN HALAMAN (TABS) */
+        function switchTab(tabId) {
+            ['home', 'order', 'owner'].forEach(t => {
+                const navBtn = document.getElementById(`nav-${t}`);
+                const contentDiv = document.getElementById(`tab-${t}`);
+                if (t === tabId) {
+                    navBtn.className = "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                    contentDiv.classList.remove('hidden');
+                    contentDiv.classList.add('block');
+                } else {
+                    navBtn.className = "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                    contentDiv.classList.remove('block');
+                    contentDiv.classList.add('hidden');
+                }
+            });
+        }
+
+        /* SCRIPT 2: LOGIKA FORM & HARGA */
+        function selectDropdownPackage(valueString) {
+            const dropdown = document.getElementById('nominal_package');
+            dropdown.value = valueString;
+            toggleCustomInput();
+            dropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function toggleCustomInput() {
+            const packageSelect = document.getElementById('nominal_package').value;
+            const customBox = document.getElementById('custom_order_box');
+            if (packageSelect === "CUSTOM") {
+                customBox.classList.remove('hidden');
+            } else {
+                customBox.classList.add('hidden');
+                document.getElementById('custom_m_amount').value = "";
+                document.getElementById('custom_price_display').textContent = "Rp 0";
+            }
+        }
+
+        function calculateCustomPrice() {
+            const mAmount = parseInt(document.getElementById('custom_m_amount').value) || 0;
+            const totalPrice = mAmount * 900;
+            document.getElementById('custom_price_display').textContent = "Rp " + totalPrice.toLocaleString('id-ID');
+        }
+
+        /* SCRIPT 3: TEMA GELAP/TERANG (DARK MODE) */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Pengecekan otomatis saat web pertama kali dimuat
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+        }
+
+        /* SCRIPT 4: LANGUAGE SWITCHER (MULTI-BAHASA) */
+        let currentLang = 'id';
+        const dict = {
+            id: {
+                langIcon: '🇮🇩', langText: 'ID',
+                subtitle: 'Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.',
+                orderNow: 'Yuk, Order Sekarang!',
+                followIg: 'Follow Instagram Kami',
+                bonusInfo: 'Setiap pembelian terdapat bonus yang besar.',
+                bonusWarn: '(Orderan dibawah 20K tidak mendapatkan bonus.)',
+                formTitle: 'FORMULIR PEMBELIAN JOKI',
+                lblUser: 'Username Roblox :',
+                lbl2fa: 'Verifikasi 2 Langkah (2FA) :',
+                lblActive: 'Aktif (Iya)',
+                lblInactive: 'Tidak Aktif',
+                lblWa: 'Nomor WhatsApp Aktif :',
+                lblPack: 'Pilih Nominal Paket Joki :',
+                optCustom: 'Custom Order',
+                lblCustom: 'Masukkan Jumlah Nominal Custom (M) :',
+                lblTotal: 'Total Harga:',
+                lblPay: 'Metode Pembayaran Utama :',
+                btnSend: 'KIRIM ORDER SEKARANG',
+                errUser: 'Mohon isi Username Roblox Anda terlebih dahulu!',
+                err2fa: 'Mohon pilih status Verifikasi 2 Langkah (2FA) aktif atau tidak!',
+                errWa: 'Mohon isi Nomor WhatsApp Anda terlebih dahulu!',
+                errCustom: 'Silakan masukkan jumlah nominal custom M yang valid!',
+                waInvoice: '*IHFGX STORE — INVOICE ORDER JOKI*',
+                waUser: '👤 Username Roblox :',
+                wa2fa: '🔐 2-Step Verif     :',
+                waPack: '📦 Paket Nominal    :',
+                waTotal: '💳 Total Pembayaran :',
+                waPay: '💰 Metode Bayar     :',
+                waNo: '📱 No. WhatsApp     :',
+                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor rekeningnya ya min, terima kasih!'
+            },
+            en: {
+                langIcon: '🇺🇸', langText: 'EN',
+                subtitle: 'The fastest and safest solution for your CDID money needs.',
+                orderNow: 'Order Now!',
+                followIg: 'Follow Our Instagram',
+                bonusInfo: 'Every purchase includes a huge bonus.',
+                bonusWarn: '(Orders under 20K do not get a bonus.)',
+                formTitle: 'JOKI ORDER FORM',
+                lblUser: 'Roblox Username :',
+                lbl2fa: '2-Step Verification (2FA) :',
+                lblActive: 'Active (Yes)',
+                lblInactive: 'Inactive',
+                lblWa: 'Active WhatsApp Number :',
+                lblPack: 'Select Joki Package :',
+                optCustom: 'Custom Order',
+                lblCustom: 'Enter Custom Amount (M) :',
+                lblTotal: 'Total Price:',
+                lblPay: 'Primary Payment Method :',
+                btnSend: 'SEND ORDER NOW',
+                errUser: 'Please enter your Roblox Username first!',
+                err2fa: 'Please select 2-Step Verification (2FA) status!',
+                errWa: 'Please enter your WhatsApp Number first!',
+                errCustom: 'Please enter a valid custom amount!',
+                waInvoice: '*IHFGX STORE — JOKI ORDER INVOICE*',
+                waUser: '👤 Roblox Username :',
+                wa2fa: '🔐 2-Step Verif     :',
+                waPack: '📦 Package Nominal  :',
+                waTotal: '💳 Total Payment    :',
+                waPay: '💰 Payment Method   :',
+                waNo: '📱 WhatsApp No.     :',
+                waFooter: 'Please process the order and provide the bank account details, thank you!'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            const t = dict[currentLang];
+            
+            document.getElementById('lang-icon').textContent = t.langIcon;
+            document.getElementById('lang-text').textContent = t.langText;
+            document.getElementById('t-subtitle').textContent = t.subtitle;
+            document.getElementById('t-orderNow').textContent = t.orderNow;
+            document.getElementById('t-followIg').textContent = t.followIg;
+            document.getElementById('t-bonusInfo').textContent = t.bonusInfo;
+            document.getElementById('t-bonusWarn').textContent = t.bonusWarn;
+            document.getElementById('t-formTitle').textContent = t.formTitle;
+            document.getElementById('t-lblUser').textContent = t.lblUser;
+            document.getElementById('t-lbl2fa').textContent = t.lbl2fa;
+            document.getElementById('t-lblActive').textContent = t.lblActive;
+            document.getElementById('t-lblInactive').textContent = t.lblInactive;
+            document.getElementById('t-lblWa').textContent = t.lblWa;
+            document.getElementById('t-lblPack').textContent = t.lblPack;
+            document.getElementById('opt-custom').textContent = t.optCustom;
+            document.getElementById('t-lblCustom').textContent = t.lblCustom;
+            document.getElementById('t-lblTotal').textContent = t.lblTotal;
+            document.getElementById('t-lblPay').textContent = t.lblPay;
+            document.getElementById('t-btnSend').textContent = t.btnSend;
+            
+            // Re-render inputs placeholder
+            document.getElementById('roblox_user').placeholder = currentLang === 'id' ? 'Username' : 'Username';
+        }
+
+        /* SCRIPT 5: SISTEM KIRIM ORDER KE WA */
+        function sendOrderToWhatsApp() {
+            const adminWhatsAppNumber = "6289520862464"; // NOMOR BARU!
+            const t = dict[currentLang]; // Panggil dictionary bahasa saat ini
+            
+            const username = document.getElementById('roblox_user').value.trim();
+            const v2step = document.querySelector('input[name="v2step"]:checked');
+            const clientWa = document.getElementById('client_wa').value.trim();
+            const packageValue = document.getElementById('nominal_package').value;
+            const payment = document.getElementById('payment_method').value;
+            
+            if (!username) { alert(t.errUser); document.getElementById('roblox_user').focus(); return; }
+            if (!v2step) { alert(t.err2fa); return; }
+            if (!clientWa) { alert(t.errWa); document.getElementById('client_wa').focus(); return; }
+
+            let selectedNominal = "";
+            let selectedPrice = 0;
+
+            if (packageValue === "CUSTOM") {
+                const customM = parseInt(document.getElementById('custom_m_amount').value) || 0;
+                if (customM <= 0) {
+                    alert(t.errCustom);
+                    document.getElementById('custom_m_amount').focus();
+                    return;
+                }
+                selectedNominal = customM + "M (Custom Order)";
+                selectedPrice = customM * 900;
+            } else {
+                const parts = packageValue.split('|');
+                selectedNominal = parts[0];
+                selectedPrice = parseInt(parts[1]);
+            }
+
+            const activeText = v2step.value === 'Aktif' ? t.lblActive : t.lblInactive;
+
+            const messageText = encodeURIComponent(
+                `${t.waInvoice}\n` +
+                `------------------------------------\n` +
+                `${t.waUser} ${username}\n` +
+                `${t.wa2fa} ${activeText}\n` +
+                `${t.waPack} ${selectedNominal}\n` +
+                `${t.waTotal} Rp ${selectedPrice.toLocaleString('id-ID')}\n` +
+                `${t.waPay} ${payment}\n` +
+                `${t.waNo} ${clientWa}\n` +
+                `------------------------------------\n` +
+                `${t.waFooter}`
+            );
+
+            const waLink = `https://wa.me/${adminWhatsAppNumber}?text=${messageText}`;
+
+            const linkElement = document.createElement('a');
+            linkElement.href = waLink;
+            linkElement.target = '_blank';
+            document.body.appendChild(linkElement);
+            linkElement.click();
+            document.body.removeChild(linkElement);
+        }
+    </script>
+</body>
+</html>
                         heading: ['"Space Grotesk"', 'sans-serif'],
                     }
                 }
