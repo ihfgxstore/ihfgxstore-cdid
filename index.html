@@ -169,10 +169,15 @@
                     </p>
                 </div>
 
-                <div class="flex w-full justify-center px-6 sm:px-0 pt-2">
+                <!-- TOMBOL SOCIALS -->
+                <div class="flex flex-col sm:flex-row w-full justify-center gap-3 px-6 sm:px-0 pt-2">
                     <a href="https://instagram.com/ihfgxstore.cdid" target="_blank" class="inline-flex items-center justify-center gap-3 bg-brand-dark dark:bg-white text-brand-goldLight dark:text-brand-dark hover:opacity-90 font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 text-sm md:text-base w-full sm:w-auto">
                         <i class="fa-brands fa-instagram text-xl text-brand-gold"></i>
                         <span id="t-followIg">Follow Instagram Kami</span>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029Vb6TG0VJJhzZMfbp6G04" target="_blank" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white hover:bg-green-600 font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 text-sm md:text-base w-full sm:w-auto">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span id="t-joinChannel">Join Saluran WA</span>
                     </a>
                 </div>
             </div>
@@ -412,7 +417,7 @@
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* SCRIPT 4: THEME */
+        /* SCRIPT 4: TEMA */
         function toggleTheme() {
             const h = document.documentElement, i = document.getElementById('theme-icon');
             h.classList.toggle('dark');
@@ -432,7 +437,7 @@
             id: {
                 themeText: 'Mode Gelap', langText: 'Bahasa',
                 subtitle: 'Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.',
-                orderNow: 'Yuk, Order Sekarang!', followIg: 'Follow Instagram Kami',
+                orderNow: 'Yuk, Order Sekarang!', followIg: 'Follow Instagram Kami', joinChannel: 'Join Saluran WA',
                 bonusInfo: 'Setiap pembelian terdapat bonus yang besar.',
                 bonusWarn: '(Orderan dibawah 20K tidak mendapatkan bonus.)',
                 formTitle: 'FORMULIR PEMBELIAN JOKI', lblUser: 'Username Roblox :',
@@ -442,12 +447,12 @@
                 btnSend: 'KIRIM ORDER SEKARANG',
                 errUser: 'Mohon isi Username Roblox!', err2fa: 'Pilih status 2FA!', errWa: 'Isi Nomor WA!', errCustom: 'Masukkan M yang valid!',
                 waInvoice: '*IHFGX STORE — INVOICE ORDER JOKI*', waUser: '👤 Username Roblox :', wa2fa: '🔐 2-Step Verif     :', waPack: '📦 Paket Nominal    :', waTotal: '💳 Total Pembayaran :', waPay: '💰 Metode Bayar     :', waNo: '📱 No. WhatsApp     :',
-                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor pembayarannya ya min, terima kasih!'
+                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor pembayaran ya min, terima kasih!'
             },
             en: {
                 themeText: 'Dark Mode', langText: 'Language',
                 subtitle: 'The fastest and safest solution for your CDID money needs.',
-                orderNow: 'Order Now!', followIg: 'Follow Our Instagram',
+                orderNow: 'Order Now!', followIg: 'Follow Our Instagram', joinChannel: 'Join WA Channel',
                 bonusInfo: 'Every purchase includes a huge bonus.',
                 bonusWarn: '(Orders under 20K do not get a bonus.)',
                 formTitle: 'JOKI ORDER FORM', lblUser: 'Roblox Username :',
@@ -471,10 +476,11 @@
             const t = dict[currentLang];
             document.getElementById('lang-icon').textContent = currentLang === 'id' ? '🇮🇩' : '🇺🇸';
             document.getElementById('lang-code').textContent = currentLang === 'id' ? 'ID' : 'EN';
-            document.getElementById('t-langText').textContent = t.langText;
+            document.getElementById('t-langText').textContent = t.langMenuText;
             document.getElementById('t-subtitle').textContent = t.subtitle;
             document.getElementById('t-orderNow').textContent = t.orderNow;
             document.getElementById('t-followIg').textContent = t.followIg;
+            document.getElementById('t-joinChannel').textContent = t.joinChannel;
             document.getElementById('t-bonusInfo').textContent = t.bonusInfo;
             document.getElementById('t-bonusWarn').textContent = t.bonusWarn;
             document.getElementById('t-formTitle').textContent = t.formTitle;
@@ -529,4 +535,3 @@
     </script>
 </body>
 </html>
-
