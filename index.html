@@ -68,7 +68,16 @@
                 radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 200px 200px;
-            animation: moveStars 8s linear infinite; /* Kecepatan dan loop animasi */
+            animation: moveStars 8s linear infinite; 
+        }
+
+        /* BARU: Animasi Transisi Perpindahan Halaman */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-tab {
+            animation: fadeSlideUp 0.4s ease-out forwards;
         }
     </style>
 </head>
@@ -94,7 +103,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-        <section id="tab-home" class="block w-full">
+        <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl">
                     <div class="relative">
@@ -124,7 +133,7 @@
             </div>
         </section>
 
-        <section id="tab-order" class="hidden w-full">
+        <section id="tab-order" class="hidden w-full animate-tab">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
                 <div class="lg:col-span-7 w-full">
@@ -196,18 +205,18 @@
                         <form id="orderForm" class="space-y-4 md:space-y-5">
                             <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Username Roblox :</label>
-                                <input type="text" id="roblox_user" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Masukkan Username Anda">
+                                <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Masukkan Username Anda">
                             </div>
 
                             <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Verifikasi 2 Langkah (2FA) :</label>
                                 <div class="flex gap-3">
                                     <label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold transition-all bg-gray-50/50">
-                                        <input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold">
+                                        <input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
                                         <span class="ml-2 font-medium text-sm md:text-base text-gray-700">Aktif (Iya)</span>
                                     </label>
                                     <label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold transition-all bg-gray-50/50">
-                                        <input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold">
+                                        <input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
                                         <span class="ml-2 font-medium text-sm md:text-base text-gray-700">Tidak Aktif</span>
                                     </label>
                                 </div>
@@ -215,12 +224,12 @@
 
                             <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Nomor WhatsApp Aktif :</label>
-                                <input type="tel" id="client_wa" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Contoh: 081234567890">
+                                <input type="tel" id="client_wa" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Contoh: 081234567890">
                             </div>
 
                             <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Pilih Nominal Paket Joki :</label>
-                                <select id="nominal_package" onchange="toggleCustomInput()" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50 font-semibold text-sm md:text-base">
+                                <select id="nominal_package" onchange="toggleCustomInput()" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50 font-semibold text-sm md:text-base">
                                     <option value="10M|9000">10M — Rp 9.000</option>
                                     <option value="30M|27000">30M — Rp 27.000</option>
                                     <option value="50M|45000">50M — Rp 45.000</option>
@@ -243,7 +252,7 @@
 
                             <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Metode Pembayaran Utama :</label>
-                                <select id="payment_method" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50 font-semibold text-sm md:text-base">
+                                <select id="payment_method" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50 font-semibold text-sm md:text-base">
                                     <option value="QRIS">QRIS</option>
                                     <option value="DANA/GOPAY">DANA / GOPAY</option>
                                 </select>
@@ -259,7 +268,7 @@
             </div>
         </section>
 
-        <section id="tab-owner" class="hidden w-full">
+        <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
                     <div class="space-y-3 text-left">
@@ -388,7 +397,7 @@
                 `💰 Metode Bayar     : ${payment}\n` +
                 `📱 No. WhatsApp     : ${clientWa}\n` +
                 `------------------------------------\n` +
-                `Mohon segera diproses pesanan dan diinfokan nomor pembayarannya ya min, terima kasih!`
+                `Mohon segera diproses pesanan dan diinfokan nomor rekeningnya ya min, terima kasih!`
             );
 
             const waLink = `https://wa.me/${adminWhatsAppNumber}?text=${messageText}`;
