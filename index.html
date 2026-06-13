@@ -166,6 +166,20 @@
                             </div>
 
                             <div>
+                                <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Verifikasi 2 Langkah (2FA) :</label>
+                                <div class="flex gap-3">
+                                    <label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold transition-all bg-gray-50/50">
+                                        <input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold">
+                                        <span class="ml-2 font-medium text-sm md:text-base text-gray-700">Aktif (Iya)</span>
+                                    </label>
+                                    <label class="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold transition-all bg-gray-50/50">
+                                        <input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold">
+                                        <span class="ml-2 font-medium text-sm md:text-base text-gray-700">Tidak Aktif</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
                                 <label class="block text-xs md:text-sm font-bold text-gray-700 mb-1.5">Nomor WhatsApp Aktif :</label>
                                 <input type="tel" id="client_wa" class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-brand-gold bg-gray-50/50 font-medium text-sm md:text-base" placeholder="Contoh: 081234567890">
                             </div>
@@ -272,6 +286,7 @@
         function sendOrderToWhatsApp() {
             const adminWhatsAppNumber = "628133739151"; 
             const username = document.getElementById('roblox_user').value.trim();
+            const v2step = document.querySelector('input[name="v2step"]:checked');
             const clientWa = document.getElementById('client_wa').value.trim();
             const packageValue = document.getElementById('nominal_package').value;
             const payment = document.getElementById('payment_method').value;
@@ -279,6 +294,10 @@
             if (!username) {
                 alert("Mohon isi Username Roblox Anda terlebih dahulu!");
                 document.getElementById('roblox_user').focus();
+                return;
+            }
+            if (!v2step) {
+                alert("Mohon pilih status Verifikasi 2 Langkah (2FA) aktif atau tidak!");
                 return;
             }
             if (!clientWa) {
@@ -309,6 +328,7 @@
                 `*IHFGX STORE — INVOICE ORDER JOKI*\n` +
                 `------------------------------------\n` +
                 `👤 Username Roblox : ${username}\n` +
+                `🔐 2-Step Verif     : ${v2step.value}\n` +
                 `📦 Paket Nominal    : ${selectedNominal}\n` +
                 `💳 Total Pembayaran : Rp ${selectedPrice.toLocaleString('id-ID')}\n` +
                 `💰 Metode Bayar     : ${payment}\n` +
