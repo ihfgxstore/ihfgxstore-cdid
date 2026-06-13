@@ -2,8 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="color-scheme" content="light">
     
     <title>IHFGX STORE - Joki Uang CDID</title>
@@ -24,7 +23,7 @@
     
     <script>
         tailwind.config = {
-            darkMode: 'class', // Mengaktifkan Manual Dark Mode via Class
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -34,8 +33,8 @@
                             gold: '#C5A880',
                             goldLight: '#F5EFEB',
                             accent: '#2DD4BF',
-                            darkBg: '#0b0c10', // Warna background saat dark mode
-                            darkCard: '#15171e' // Warna card saat dark mode
+                            darkBg: '#0b0c10',
+                            darkCard: '#15171e'
                         }
                     },
                     fontFamily: {
@@ -52,19 +51,14 @@
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
         }
         
-        .tab-active {
-            border-bottom: 3px solid #111315;
-            color: #111315;
-            font-weight: 700;
-        }
+        /* Navigasi Desktop Aktif */
+        .tab-active { border-bottom: 3px solid #111315; color: #111315; font-weight: 700; }
+        .dark .tab-active { border-bottom: 3px solid #ffffff; color: #ffffff; }
+
+        /* Navigasi HP Aktif */
+        .mob-active { color: #111315; }
+        .dark .mob-active { color: #ffffff; }
         
-        /* CSS Khusus Mode Gelap untuk Navigasi Aktif */
-        .dark .tab-active {
-            border-bottom: 3px solid #ffffff;
-            color: #ffffff;
-        }
-        
-        /* Animasi Bintang Bergerak */
         @keyframes moveStars {
             0% { background-position: 0 0; }
             100% { background-position: 200px 200px; }
@@ -84,7 +78,6 @@
             animation: moveStars 8s linear infinite; 
         }
 
-        /* Animasi Transisi Perpindahan Halaman */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -96,7 +89,7 @@
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300">
 
-    <!-- HEADER / NAVBAR -->
+    <!-- HEADER ATAS -->
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -108,25 +101,34 @@
                     <span class="font-heading font-extrabold text-xl tracking-wider text-brand-dark dark:text-white transition-colors">IHFGX STORE</span>
                 </div>
 
-                <div class="flex items-center gap-2 md:gap-6">
-                    <!-- Navigasi Utama -->
+                <div class="flex items-center gap-6">
+                    <!-- Navigasi Utama (Hanya terlihat di Laptop/Tablet) -->
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
                         <button id="nav-owner" onclick="switchTab('owner')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">OWNER</button>
                     </nav>
 
-                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
-                        <!-- Theme Switcher (Dark/Light Mode) -->
-                        <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300">
-                            <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    <!-- Tombol Pengaturan (Gear) -->
+                    <div class="relative">
+                        <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
+                            <i class="fa-solid fa-gear text-lg"></i>
                         </button>
                         
-                        <!-- Language Switcher -->
-                        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-brand-gold/10 hover:text-brand-gold transition-colors font-bold text-sm text-gray-700 dark:text-gray-200 border border-transparent">
-                            <span id="lang-icon" class="text-lg leading-none">🇮🇩</span> 
-                            <span id="lang-text" class="mt-0.5">ID</span>
-                        </button>
+                        <!-- Dropdown Menu Pengaturan -->
+                        <div id="settings-dropdown" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 z-50">
+                            <!-- Toggle Tema -->
+                            <button onclick="toggleTheme()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                                <span id="t-themeText">Mode Gelap</span>
+                                <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
+                            </button>
+                            <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
+                            <!-- Toggle Bahasa -->
+                            <button onclick="toggleLanguage()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                                <span id="t-langText">Bahasa</span>
+                                <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -134,17 +136,17 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- KONTEN UTAMA (pb-24 diberikan agar tidak tertutup menu HP di bawah) -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-10">
 
         <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
-            <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12">
+            <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl">
                     <div class="relative">
                         <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
-                        <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-56 h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
+                        <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
                     </div>
-                    
                     <h1 class="font-heading font-extrabold text-5xl tracking-widest text-brand-dark dark:text-white transition-colors mt-6">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
                 </div>
@@ -312,14 +314,14 @@
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-                    <div class="space-y-3 text-left">
+                    <div class="space-y-3 text-center md:text-left">
                         <h1 class="text-5xl md:text-6xl font-black text-white tracking-wide">Hapiss</h1>
                         <div class="space-y-1 mt-4">
                             <p class="text-sm md:text-base text-gray-400">UI/UX Designer</p>
                             <p class="text-sm md:text-base text-gray-400">Website Developer</p>
                             <p class="text-sm md:text-base text-gray-400">15 yo</p>
                         </div>
-                        <div class="flex items-center gap-3 pt-6">
+                        <div class="flex items-center justify-center md:justify-start gap-3 pt-6">
                             <a href="https://instagram.com/hpissnc_" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                                 <i class="fa-brands fa-instagram text-2xl"></i>
                                 <span class="font-medium">hpissnc_</span>
@@ -338,32 +340,82 @@
 
     </main>
 
-    <footer class="bg-brand-bg dark:bg-brand-darkBg border-t border-gray-100 dark:border-gray-800 py-6 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
+    <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
+        <div class="flex justify-around items-center h-16 px-2">
+            <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[10px] font-bold tracking-wider">HOME</span>
+            </button>
+            <button id="nav-order-mob" onclick="switchTab('order')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors">
+                <i class="fa-solid fa-cart-shopping text-lg"></i>
+                <span class="text-[10px] font-bold tracking-wider">ORDER</span>
+            </button>
+            <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors">
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-[10px] font-bold tracking-wider">OWNER</span>
+            </button>
         </div>
-    </footer>
+    </nav>
 
-    <!-- BAGIAN JAVASCRIPT LENGKAP -->
+    <!-- BAGIAN JAVASCRIPT -->
     <script>
-        /* SCRIPT 1: TAMPILAN HALAMAN (TABS) */
+        // SCRIPT 1: MENU & NAVIGASI (Desktop & Mobile)
         function switchTab(tabId) {
             ['home', 'order', 'owner'].forEach(t => {
-                const navBtn = document.getElementById(`nav-${t}`);
+                // Tampilan Section
                 const contentDiv = document.getElementById(`tab-${t}`);
                 if (t === tabId) {
-                    navBtn.className = "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
                     contentDiv.classList.remove('hidden');
                     contentDiv.classList.add('block');
                 } else {
-                    navBtn.className = "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
                     contentDiv.classList.remove('block');
                     contentDiv.classList.add('hidden');
                 }
+
+                // Navigasi Atas (Desktop)
+                const navBtn = document.getElementById(`nav-${t}`);
+                if(navBtn) {
+                    if (t === tabId) {
+                        navBtn.className = "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                    } else {
+                        navBtn.className = "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                    }
+                }
+
+                // Navigasi Bawah (Mobile)
+                const navBtnMob = document.getElementById(`nav-${t}-mob`);
+                if(navBtnMob) {
+                    if (t === tabId) {
+                        navBtnMob.className = "flex flex-col items-center gap-1 w-full mob-active transition-colors";
+                    } else {
+                        navBtnMob.className = "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
+                    }
+                }
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* SCRIPT 2: LOGIKA FORM & HARGA */
+        // SCRIPT 2: MENU PENGATURAN (GEAR)
+        function toggleSettings() {
+            const dropdown = document.getElementById('settings-dropdown');
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+
+        // Menutup dropdown pengaturan jika diklik di tempat lain
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('settings-dropdown');
+            const button = document.getElementById('btn-settings');
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // SCRIPT 3: LOGIKA FORM & HARGA
         function selectDropdownPackage(valueString) {
             const dropdown = document.getElementById('nominal_package');
             dropdown.value = valueString;
@@ -389,32 +441,43 @@
             document.getElementById('custom_price_display').textContent = "Rp " + totalPrice.toLocaleString('id-ID');
         }
 
-        /* SCRIPT 3: TEMA GELAP/TERANG (DARK MODE) */
+        // SCRIPT 4: TEMA GELAP/TERANG (DARK MODE)
+        function updateThemeLabel() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const label = currentLang === 'id' 
+                ? (isDark ? 'Mode Terang' : 'Mode Gelap') 
+                : (isDark ? 'Light Mode' : 'Dark Mode');
+            document.getElementById('t-themeText').textContent = label;
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const icon = document.getElementById('theme-icon');
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon';
+                icon.className = 'fa-solid fa-moon text-gray-500';
                 localStorage.setItem('theme', 'light');
             } else {
                 html.classList.add('dark');
-                icon.className = 'fa-solid fa-sun';
+                icon.className = 'fa-solid fa-sun text-gray-500';
                 localStorage.setItem('theme', 'dark');
             }
+            updateThemeLabel();
+            // Otomatis tutup dropdown setelah pilih
+            document.getElementById('settings-dropdown').classList.add('hidden');
         }
         
-        // Pengecekan otomatis saat web pertama kali dimuat
+        // Pengecekan otomatis saat web dimuat
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
-            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
         }
 
-        /* SCRIPT 4: LANGUAGE SWITCHER (MULTI-BAHASA) */
+        // SCRIPT 5: LANGUAGE SWITCHER (MULTI-BAHASA)
         let currentLang = 'id';
         const dict = {
             id: {
-                langIcon: '🇮🇩', langText: 'ID',
+                langIcon: '🇮🇩', langText: 'ID', langMenuText: 'Bahasa',
                 subtitle: 'Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.',
                 orderNow: 'Yuk, Order Sekarang!',
                 followIg: 'Follow Instagram Kami',
@@ -446,7 +509,7 @@
                 waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor rekeningnya ya min, terima kasih!'
             },
             en: {
-                langIcon: '🇺🇸', langText: 'EN',
+                langIcon: '🇺🇸', langText: 'EN', langMenuText: 'Language',
                 subtitle: 'The fastest and safest solution for your CDID money needs.',
                 orderNow: 'Order Now!',
                 followIg: 'Follow Our Instagram',
@@ -484,7 +547,9 @@
             const t = dict[currentLang];
             
             document.getElementById('lang-icon').textContent = t.langIcon;
-            document.getElementById('lang-text').textContent = t.langText;
+            document.getElementById('lang-code').textContent = t.langText;
+            document.getElementById('t-langText').textContent = t.langMenuText;
+            
             document.getElementById('t-subtitle').textContent = t.subtitle;
             document.getElementById('t-orderNow').textContent = t.orderNow;
             document.getElementById('t-followIg').textContent = t.followIg;
@@ -502,15 +567,20 @@
             document.getElementById('t-lblTotal').textContent = t.lblTotal;
             document.getElementById('t-lblPay').textContent = t.lblPay;
             document.getElementById('t-btnSend').textContent = t.btnSend;
-            
-            // Re-render inputs placeholder
             document.getElementById('roblox_user').placeholder = currentLang === 'id' ? 'Username' : 'Username';
+            
+            updateThemeLabel();
+            // Otomatis tutup dropdown setelah pilih
+            document.getElementById('settings-dropdown').classList.add('hidden');
         }
 
-        /* SCRIPT 5: SISTEM KIRIM ORDER KE WA */
+        // Panggil sekali untuk menyesuaikan teks tema saat awal dimuat
+        updateThemeLabel();
+
+        // SCRIPT 6: SISTEM KIRIM ORDER KE WA
         function sendOrderToWhatsApp() {
-            const adminWhatsAppNumber = "6289520862464"; // NOMOR BARU!
-            const t = dict[currentLang]; // Panggil dictionary bahasa saat ini
+            const adminWhatsAppNumber = "628133739151"; 
+            const t = dict[currentLang]; 
             
             const username = document.getElementById('roblox_user').value.trim();
             const v2step = document.querySelector('input[name="v2step"]:checked');
