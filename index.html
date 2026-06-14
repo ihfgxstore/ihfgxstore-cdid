@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
     <meta name="color-scheme" content="light">
     
     <title>IHFGX STORE - Joki Uang CDID</title>
@@ -70,8 +69,6 @@
             color: #ffffff;
         }
 
-        /* --- ANIMASI BARU MULAI DARI SINI --- */
-        
         /* 1. Animasi Floating Logo */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -110,8 +107,6 @@
             animation: pulse-glow 2s infinite;
         }
         
-        /* --- AKHIR ANIMASI BARU --- */
-        
         /* Animasi Bintang Bergerak */
         @keyframes moveStars {
             0% { background-position: 0 0; }
@@ -142,9 +137,8 @@
         }
     </style>
 </head>
-<body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300">
+<body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300 overflow-y-scroll">
 
-    <!-- HEADER / NAVBAR -->
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -157,7 +151,6 @@
                 </div>
 
                 <div class="flex items-center gap-2 md:gap-6">
-                    <!-- Navigasi Utama (Desktop) -->
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
@@ -165,21 +158,17 @@
                     </nav>
 
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
-                        <!-- Tombol Pengaturan (Gear) -->
                         <div class="relative">
                             <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm hover:rotate-90 duration-500">
                                 <i class="fa-solid fa-gear text-lg"></i>
                             </button>
                             
-                            <!-- Dropdown Menu Pengaturan -->
                             <div id="settings-dropdown" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 z-50">
-                                <!-- Toggle Tema -->
                                 <button onclick="toggleTheme()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
                                 <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
-                                <!-- Toggle Bahasa -->
                                 <button onclick="toggleLanguage()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-langText">Bahasa</span>
                                     <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
@@ -195,17 +184,14 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-10">
 
-        <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
-                <!-- Terapkan Animasi Float Disini -->
                 <div class="relative flex flex-col items-center p-6 rounded-3xl animate-float">
                     <div class="relative">
                         <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
                         <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
                     </div>
                     
-                    <!-- Terapkan Animasi Shimmer Teks Disini -->
                     <h1 class="font-heading font-extrabold text-5xl tracking-widest mt-6 text-shimmer">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
                 </div>
@@ -219,7 +205,6 @@
                     </p>
                 </div>
 
-                <!-- TOMBOL SOCIALS -->
                 <div class="flex flex-col sm:flex-row w-full justify-center gap-3 px-6 sm:px-0 pt-2">
                     <a href="https://instagram.com/ihfgxstore.cdid" target="_blank" class="inline-flex items-center justify-center gap-3 bg-brand-dark dark:bg-white text-brand-goldLight dark:text-brand-dark hover:opacity-90 font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 text-sm md:text-base w-full sm:w-auto">
                         <i class="fa-brands fa-instagram text-xl text-brand-gold"></i>
@@ -233,22 +218,20 @@
             </div>
         </section>
 
-        <!-- SECTION ORDER -->
         <section id="tab-order" class="hidden w-full animate-tab">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
                 <div class="lg:col-span-7 w-full">
-                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 gold-border-glow relative">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 gold-border-glow relative hover:shadow-xl transition-all duration-300">
                         <div class="text-center mb-10 border-b border-brand-gold/20 dark:border-gray-700 pb-10 transition-colors">
                             <span class="inline-block bg-brand-goldLight dark:bg-brand-gold/10 text-brand-gold font-bold tracking-widest text-xs md:text-sm px-6 py-2 rounded-full uppercase border border-brand-gold/20 shadow-inner">PRICELIST</span>
                             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-brand-dark dark:text-white mt-4 tracking-wider transition-colors">JOKI UANG CDID</h2>
                             <div class="mt-3">
-                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm animate-pulse">900P = 1M</span>
+                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm">900P = 1M</span>
                             </div>
                         </div>
 
-                        <div class="space-y-4">
-                            <!-- Paket 10M (Ditambahkan class hover untuk interaksi) -->
+                        <div class="space-y-6">
                             <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">10M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -257,7 +240,6 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <!-- Paket 30M -->
                             <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">30M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -266,7 +248,6 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <!-- Paket 50M -->
                             <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -275,7 +256,6 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <!-- Paket 100M -->
                             <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -284,7 +264,6 @@
                                     <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <!-- Paket 150M -->
                             <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
@@ -305,12 +284,11 @@
                 </div>
 
                 <div class="lg:col-span-5 w-full">
-                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative transition-colors duration-300">
                         <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
                         
                         <form id="orderForm" class="space-y-4 md:space-y-5">
                             
-                            <!-- INPUT USERNAME ROBLOX -->
                             <div>
                                 <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
                                 <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="Username">
@@ -366,7 +344,6 @@
                                 </select>
                             </div>
 
-                            <!-- Ditambahkan animasi detak jantung / Pulse Glow -->
                             <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20b858] text-white font-extrabold py-4 px-6 rounded-2xl transition-all duration-300 btn-wa-glow flex items-center justify-center gap-2 mt-4 text-sm md:text-base group">
                                 <i class="fa-brands fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
                                 <span id="t-btnSend">KIRIM ORDER SEKARANG</span>
@@ -377,7 +354,6 @@
             </div>
         </section>
 
-        <!-- SECTION OWNER -->
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -407,7 +383,6 @@
 
     </main>
 
-    <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
             <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110">
@@ -429,7 +404,6 @@
         <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
         /* SCRIPT 1: TABS SYSTEM */
         function switchTab(tabId) {
