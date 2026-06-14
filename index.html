@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
     <meta name="color-scheme" content="light">
     
     <title>IHFGX STORE - Joki Uang CDID</title>
@@ -24,7 +23,7 @@
     
     <script>
         tailwind.config = {
-            darkMode: 'class', // Mengaktifkan Manual Dark Mode via Class
+            darkMode: 'class', 
             theme: {
                 extend: {
                     colors: {
@@ -34,8 +33,8 @@
                             gold: '#C5A880',
                             goldLight: '#F5EFEB',
                             accent: '#2DD4BF',
-                            darkBg: '#0b0c10', // Warna background saat dark mode
-                            darkCard: '#15171e' // Warna card saat dark mode
+                            darkBg: '#0b0c10', 
+                            darkCard: '#15171e' 
                         }
                     },
                     fontFamily: {
@@ -47,7 +46,7 @@
         }
     </script>
     <style>
-        /* Animasi Lift-Up pada Card */
+        /* Animasi Lift-Up Card */
         .gold-border-glow {
             border: 2px solid #C5A880;
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
@@ -58,26 +57,15 @@
             transform: translateY(-4px);
         }
         
-        .tab-active {
-            border-bottom: 3px solid #111315;
-            color: #111315;
-            font-weight: 700;
-        }
-        
-        /* CSS Khusus Mode Gelap untuk Navigasi Aktif */
-        .dark .tab-active {
-            border-bottom: 3px solid #ffffff;
-            color: #ffffff;
-        }
+        .tab-active { border-bottom: 3px solid #111315; color: #111315; font-weight: 700; }
+        .dark .tab-active { border-bottom: 3px solid #ffffff; color: #ffffff; }
 
         /* Animasi Floating Logo */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
 
         /* Animasi Shimmer Text */
         @keyframes shimmer {
@@ -104,16 +92,13 @@
             0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); }
             50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); }
         }
-        .btn-wa-glow {
-            animation: pulse-glow 2s infinite;
-        }
+        .btn-wa-glow { animation: pulse-glow 2.5s infinite ease-in-out; }
         
         /* Animasi Bintang Bergerak */
         @keyframes moveStars {
             0% { background-position: 0 0; }
             100% { background-position: 200px 200px; }
         }
-        
         .stars-bg {
             background-color: #0b0714;
             background-image: 
@@ -128,14 +113,12 @@
             animation: moveStars 8s linear infinite; 
         }
 
-        /* Animasi Transisi Perpindahan Halaman */
+        /* Animasi Transisi Tab */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-tab {
-            animation: fadeSlideUp 0.4s ease-out forwards;
-        }
+        .animate-tab { animation: fadeSlideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
     </style>
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300 overflow-y-scroll">
@@ -160,29 +143,25 @@
 
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
                         
-                        <!-- Struktur Baru: Z-Index diatur rapi agar gelombang menutupi dropdown tapi TIDAK menutupi gerigi -->
                         <div class="relative flex items-center justify-center">
                             
-                            <!-- DIV GELOMBANG TEMA (Di belakang gerigi, menutupi layar) -->
-                            <div id="theme-wave" class="fixed rounded-full pointer-events-none opacity-0 z-[50]" style="width: 50px; height: 50px; transform-origin: center center;"></div>
+                            <div id="theme-wave" class="fixed pointer-events-none z-[50]" style="width: 250vmax; height: 250vmax; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0);"></div>
                             
-                            <!-- MENU DROPDOWN (Di bawah gelombang) -->
-                            <div id="settings-dropdown" class="absolute z-[40] right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-300 ease-out opacity-0 scale-95 invisible -translate-y-2">
-                                <button onclick="triggerThemeWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <button id="btn-settings" onclick="toggleSettings()" class="relative z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
+                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"></i>
+                            </button>
+
+                            <div id="settings-dropdown" class="absolute top-full right-0 mt-3 z-[60] w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0 scale-90 invisible -translate-y-4">
+                                <button onclick="triggerThemeWipe()" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
                                 <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
-                                <button onclick="triggerLanguageWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                                <button onclick="triggerLanguageWipe()" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-langText">Bahasa</span>
                                     <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
                                 </button>
                             </div>
-
-                            <!-- TOMBOL GERIGI (Di atas segalanya) -->
-                            <button id="btn-settings" onclick="toggleSettings()" class="relative z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
-                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -393,15 +372,15 @@
 
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
-            <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110">
+            <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110 duration-300">
                 <i class="fa-solid fa-house text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">HOME</span>
             </button>
-            <button id="nav-order-mob" onclick="switchTab('order')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110">
+            <button id="nav-order-mob" onclick="switchTab('order')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300">
                 <i class="fa-solid fa-cart-shopping text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">ORDER</span>
             </button>
-            <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110">
+            <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300">
                 <i class="fa-solid fa-user text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">OWNER</span>
             </button>
@@ -427,7 +406,7 @@
                 const navBtn = document.getElementById(`nav-${t}`);
                 if(navBtn) navBtn.className = (t === tabId) ? "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" : "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
                 const navBtnMob = document.getElementById(`nav-${t}-mob`);
-                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
+                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110 duration-300" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300";
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -441,8 +420,8 @@
             isMenuOpen = !isMenuOpen;
             
             if (isMenuOpen) {
-                g.classList.add('rotate-180');
-                d.classList.remove('invisible', 'opacity-0', 'scale-95', '-translate-y-2');
+                g.style.transform = 'rotate(180deg)';
+                d.classList.remove('invisible', 'opacity-0', 'scale-90', '-translate-y-4');
                 d.classList.add('visible', 'opacity-100', 'scale-100', 'translate-y-0');
             } else {
                 closeSettings();
@@ -454,9 +433,9 @@
             const g = document.getElementById('gear-icon');
             isMenuOpen = false;
             
-            g.classList.remove('rotate-180');
+            g.style.transform = 'rotate(0deg)';
             d.classList.remove('visible', 'opacity-100', 'scale-100', 'translate-y-0');
-            d.classList.add('invisible', 'opacity-0', 'scale-95', '-translate-y-2');
+            d.classList.add('invisible', 'opacity-0', 'scale-90', '-translate-y-4');
         }
 
         document.addEventListener('click', function(e) {
@@ -478,60 +457,50 @@
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* SCRIPT 4: ANIMASI RADIAL WIPE UNTUK TEMA */
+        /* SCRIPT 4: ANIMASI RADIAL WIPE UNTUK TEMA (GPU Optimized & Smooth) */
         function triggerThemeWipe() {
             const isDark = document.documentElement.classList.contains('dark');
             const wave = document.getElementById('theme-wave');
             const gearBtn = document.getElementById('btn-settings');
             
-            // Kunci tombol agar tidak bisa di-spam
             gearBtn.disabled = true;
 
-            // Target warna yang akan disebar (warna inti)
-            const targetColor = isDark ? '#FAF9F5' : '#0b0c10'; 
+            // Target warna (Inti solid, sisi luar transparent untuk efek blur smooth)
+            const targetColor = isDark ? '250, 249, 245' : '11, 12, 16'; 
             
-            // Ambil titik koordinat tengah dari tombol gerigi
             const rect = gearBtn.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
 
-            // Atur gaya gelombang: Warna Inti + Layer Luar Blur yang sangat lebar
-            wave.style.backgroundColor = targetColor;
-            wave.style.boxShadow = `0 0 100px 80px ${targetColor}`; // Efek blur di lapisan luar
-            wave.style.left = `${centerX - 25}px`;
-            wave.style.top = `${centerY - 25}px`;
+            // Gunakan radial-gradient untuk inner solid & outer soft blur
+            wave.style.background = `radial-gradient(circle, rgba(${targetColor}, 1) 40%, rgba(${targetColor}, 0) 80%)`;
+            wave.style.left = `${centerX}px`;
+            wave.style.top = `${centerY}px`;
             
-            // Reset gelombang ke ukuran 0 tanpa transisi
             wave.style.transition = 'none';
-            wave.style.transform = 'scale(0)';
+            wave.style.transform = 'translate(-50%, -50%) scale(0)';
             wave.style.opacity = '1';
 
-            // Paksa browser membaca style sebelum menjalankan animasi
-            void wave.offsetWidth;
+            void wave.offsetWidth; // Paksa baca DOM sebelum transisi
 
-            // Mulai ekspansi gelombang (Membesar 150 kali lipat, dijamin menutupi ujung layar terbawah)
-            wave.style.transition = 'transform 0.9s cubic-bezier(0.5, 0, 0.2, 1)';
-            wave.style.transform = 'scale(150)'; 
+            // Ekspansi gelombang memakan waktu 1.2 detik dengan easing yang sangat halus
+            wave.style.transition = 'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
+            wave.style.transform = 'translate(-50%, -50%) scale(1)'; 
 
-            // TUNGGU sampai gelombang warna benar-benar menutupi seluruh layar (900ms)
+            // Waktu tunggu saat layar sudah full warna, sebelum gear tertutup
             setTimeout(() => {
-                // 1. Eksekusi ubah tema HTML asli yang tertutup gelombang
                 toggleTheme(); 
-                
-                // 2. Sekarang baru gerigi berputar balik dan menu tertutup
-                closeSettings();
+                closeSettings(); // Gerigi berputar menutup di titik ini
 
-                // 3. Setelah menu tertutup, gelombang memudar menghilang dengan halus
-                wave.style.transition = 'opacity 0.4s ease';
+                wave.style.transition = 'opacity 0.6s ease';
                 wave.style.opacity = '0';
 
-                // 4. Reset gelombang ke ukuran semula dan buka kunci tombol
                 setTimeout(() => {
-                    wave.style.transform = 'scale(0)';
+                    wave.style.transform = 'translate(-50%, -50%) scale(0)';
                     gearBtn.disabled = false; 
-                }, 400);
+                }, 600);
 
-            }, 900); // Sinkron dengan durasi transisi membesar
+            }, 800); 
         }
 
         function toggleTheme() {
@@ -550,7 +519,7 @@
         /* SCRIPT 5: ANIMASI LANGUAGE WIPE */
         function triggerLanguageWipe() {
             toggleLanguage(); 
-            closeSettings(); // Langsung tutup menu dengan animasi gerigi yang keren
+            closeSettings(); // Gerigi langsung putar tutup
         }
 
         let currentLang = 'id';
