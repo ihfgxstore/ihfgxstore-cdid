@@ -34,8 +34,8 @@
                             gold: '#C5A880',
                             goldLight: '#F5EFEB',
                             accent: '#2DD4BF',
-                            darkBg: '#0b0c10', 
-                            darkCard: '#15171e' 
+                            darkBg: '#0b0c10', // Warna background saat dark mode
+                            darkCard: '#15171e' // Warna card saat dark mode
                         }
                     },
                     fontFamily: {
@@ -47,6 +47,7 @@
         }
     </script>
     <style>
+        /* Animasi Lift-Up pada Card */
         .gold-border-glow {
             border: 2px solid #C5A880;
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
@@ -62,6 +63,8 @@
             color: #111315;
             font-weight: 700;
         }
+        
+        /* CSS Khusus Mode Gelap untuk Navigasi Aktif */
         .dark .tab-active {
             border-bottom: 3px solid #ffffff;
             color: #ffffff;
@@ -72,7 +75,9 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
 
         /* Animasi Shimmer Text */
         @keyframes shimmer {
@@ -99,10 +104,16 @@
             0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); }
             50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); }
         }
-        .btn-wa-glow { animation: pulse-glow 2s infinite; }
+        .btn-wa-glow {
+            animation: pulse-glow 2s infinite;
+        }
         
         /* Animasi Bintang Bergerak */
-        @keyframes moveStars { 0% { background-position: 0 0; } 100% { background-position: 200px 200px; } }
+        @keyframes moveStars {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+        
         .stars-bg {
             background-color: #0b0714;
             background-image: 
@@ -112,21 +123,23 @@
                 radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
                 radial-gradient(1.5px 1.5px at 130px 80px, #ffffff, rgba(0,0,0,0)),
                 radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-repeat: repeat;
             background-size: 200px 200px;
             animation: moveStars 8s linear infinite; 
         }
 
-        /* Animasi Tab Transisi */
-        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-tab { animation: fadeSlideUp 0.4s ease-out forwards; }
+        /* Animasi Transisi Perpindahan Halaman */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-tab {
+            animation: fadeSlideUp 0.4s ease-out forwards;
+        }
     </style>
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300 overflow-y-scroll">
 
-    <!-- OVERLAY ANIMASI TRANSISI TEMA -->
-    <div id="theme-overlay" class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-all ease-[cubic-bezier(0.4,0,0.2,1)]" style="clip-path: circle(0px at calc(100% - 50px) 40px); transition-duration: 800ms;"></div>
-
-    <!-- HEADER / NAVBAR -->
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -139,35 +152,37 @@
                 </div>
 
                 <div class="flex items-center gap-2 md:gap-6">
-                    <!-- Navigasi Utama (Desktop) -->
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
                         <button id="nav-owner" onclick="switchTab('owner')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">OWNER</button>
                     </nav>
 
-                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors relative z-[100]">
-                        <!-- Container Settings (z-[100] untuk memastikan di atas overlay transisi) -->
-                        <div class="relative">
-                            <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
-                                <!-- Animasi putar gerigi ada pada icon ini -->
-                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-500"></i>
-                            </button>
+                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
+                        
+                        <!-- Struktur Baru: Z-Index diatur rapi agar gelombang menutupi dropdown tapi TIDAK menutupi gerigi -->
+                        <div class="relative flex items-center justify-center">
                             
-                            <!-- Dropdown Menu Pengaturan -->
-                            <div id="settings-dropdown" class="absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-300 ease-out opacity-0 scale-95 invisible -translate-y-2">
-                                <!-- Toggle Tema -->
+                            <!-- DIV GELOMBANG TEMA (Di belakang gerigi, menutupi layar) -->
+                            <div id="theme-wave" class="fixed rounded-full pointer-events-none opacity-0 z-[50]" style="width: 50px; height: 50px; transform-origin: center center;"></div>
+                            
+                            <!-- MENU DROPDOWN (Di bawah gelombang) -->
+                            <div id="settings-dropdown" class="absolute z-[40] right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-300 ease-out opacity-0 scale-95 invisible -translate-y-2">
                                 <button onclick="triggerThemeWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
                                 <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
-                                <!-- Toggle Bahasa -->
                                 <button onclick="triggerLanguageWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-langText">Bahasa</span>
                                     <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
                                 </button>
                             </div>
+
+                            <!-- TOMBOL GERIGI (Di atas segalanya) -->
+                            <button id="btn-settings" onclick="toggleSettings()" class="relative z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
+                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)]"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -178,7 +193,6 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-10">
 
-        <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl animate-float">
@@ -213,7 +227,6 @@
             </div>
         </section>
 
-        <!-- SECTION ORDER -->
         <section id="tab-order" class="hidden w-full animate-tab">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
@@ -349,7 +362,6 @@
             </div>
         </section>
 
-        <!-- SECTION OWNER -->
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -379,7 +391,6 @@
 
     </main>
 
-    <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
             <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110">
@@ -401,7 +412,6 @@
         <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
         /* SCRIPT 1: TABS SYSTEM */
         function switchTab(tabId) {
@@ -470,37 +480,58 @@
 
         /* SCRIPT 4: ANIMASI RADIAL WIPE UNTUK TEMA */
         function triggerThemeWipe() {
-            const overlay = document.getElementById('theme-overlay');
             const isDark = document.documentElement.classList.contains('dark');
+            const wave = document.getElementById('theme-wave');
+            const gearBtn = document.getElementById('btn-settings');
             
-            // Set warna overlay (blur) menjadi background tema tujuan
-            overlay.className = `fixed inset-0 z-[60] pointer-events-none transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-[800ms] backdrop-blur-xl ${isDark ? 'bg-[#FAF9F5]/70' : 'bg-[#0b0c10]/70'}`;
-            overlay.style.opacity = '1';
-            
-            // Berikan jeda frame agar transition memicu efek menyebar
-            requestAnimationFrame(() => {
-                overlay.style.clipPath = 'circle(150vw at calc(100% - 50px) 40px)';
-            });
+            // Kunci tombol agar tidak bisa di-spam
+            gearBtn.disabled = true;
 
-            // Tunggu hingga warna/blur menyebar menutupi layar sepenuhnya
+            // Target warna yang akan disebar (warna inti)
+            const targetColor = isDark ? '#FAF9F5' : '#0b0c10'; 
+            
+            // Ambil titik koordinat tengah dari tombol gerigi
+            const rect = gearBtn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Atur gaya gelombang: Warna Inti + Layer Luar Blur yang sangat lebar
+            wave.style.backgroundColor = targetColor;
+            wave.style.boxShadow = `0 0 100px 80px ${targetColor}`; // Efek blur di lapisan luar
+            wave.style.left = `${centerX - 25}px`;
+            wave.style.top = `${centerY - 25}px`;
+            
+            // Reset gelombang ke ukuran 0 tanpa transisi
+            wave.style.transition = 'none';
+            wave.style.transform = 'scale(0)';
+            wave.style.opacity = '1';
+
+            // Paksa browser membaca style sebelum menjalankan animasi
+            void wave.offsetWidth;
+
+            // Mulai ekspansi gelombang (Membesar 150 kali lipat, dijamin menutupi ujung layar terbawah)
+            wave.style.transition = 'transform 0.9s cubic-bezier(0.5, 0, 0.2, 1)';
+            wave.style.transform = 'scale(150)'; 
+
+            // TUNGGU sampai gelombang warna benar-benar menutupi seluruh layar (900ms)
             setTimeout(() => {
-                // 1. Eksekusi ubah tema HTML
+                // 1. Eksekusi ubah tema HTML asli yang tertutup gelombang
                 toggleTheme(); 
                 
-                // 2. Sekarang gear berputar balik dan menu tertutup
+                // 2. Sekarang baru gerigi berputar balik dan menu tertutup
                 closeSettings();
 
-                // 3. Efek blur overlay menghilang perlahan
-                overlay.style.transitionDuration = '400ms';
-                overlay.style.opacity = '0';
-                
-                // 4. Kembalikan radius ke titik gear agar siap digunakan lagi
+                // 3. Setelah menu tertutup, gelombang memudar menghilang dengan halus
+                wave.style.transition = 'opacity 0.4s ease';
+                wave.style.opacity = '0';
+
+                // 4. Reset gelombang ke ukuran semula dan buka kunci tombol
                 setTimeout(() => {
-                    overlay.style.clipPath = 'circle(0px at calc(100% - 50px) 40px)';
-                    overlay.style.transitionDuration = '800ms';
+                    wave.style.transform = 'scale(0)';
+                    gearBtn.disabled = false; 
                 }, 400);
 
-            }, 800); // 800ms adalah waktu yang dibutuhkan untuk menyebar penuh
+            }, 900); // Sinkron dengan durasi transisi membesar
         }
 
         function toggleTheme() {
@@ -518,8 +549,8 @@
 
         /* SCRIPT 5: ANIMASI LANGUAGE WIPE */
         function triggerLanguageWipe() {
-            toggleLanguage(); // Eksekusi ganti bahasa instan
-            closeSettings();  // Tutup menu langsung dengan animasi (gerigi putar balik)
+            toggleLanguage(); 
+            closeSettings(); // Langsung tutup menu dengan animasi gerigi yang keren
         }
 
         let currentLang = 'id';
