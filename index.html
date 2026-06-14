@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Mencegah Browser memaksakan Invert Color/Auto Dark Mode yang merusak warna -->
     <meta name="color-scheme" content="light">
     
     <title>IHFGX STORE - Joki Uang CDID</title>
@@ -33,8 +34,8 @@
                             gold: '#C5A880',
                             goldLight: '#F5EFEB',
                             accent: '#2DD4BF',
-                            darkBg: '#0b0c10', // Warna background saat dark mode
-                            darkCard: '#15171e' // Warna card saat dark mode
+                            darkBg: '#0b0c10', 
+                            darkCard: '#15171e' 
                         }
                     },
                     fontFamily: {
@@ -46,7 +47,6 @@
         }
     </script>
     <style>
-        /* Animasi Lift-Up pada Card */
         .gold-border-glow {
             border: 2px solid #C5A880;
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
@@ -62,23 +62,19 @@
             color: #111315;
             font-weight: 700;
         }
-        
-        /* CSS Khusus Mode Gelap untuk Navigasi Aktif */
         .dark .tab-active {
             border-bottom: 3px solid #ffffff;
             color: #ffffff;
         }
 
-        /* 1. Animasi Floating Logo */
+        /* Animasi Floating Logo */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
 
-        /* 2. Animasi Shimmer Text */
+        /* Animasi Shimmer Text */
         @keyframes shimmer {
             0% { background-position: -200% center; }
             100% { background-position: 200% center; }
@@ -98,21 +94,15 @@
             animation: shimmer 4s linear infinite;
         }
 
-        /* 3. Animasi Tombol WA (Pulse Glow) */
+        /* Animasi Tombol WA (Pulse Glow) */
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); }
             50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); }
         }
-        .btn-wa-glow {
-            animation: pulse-glow 2s infinite;
-        }
+        .btn-wa-glow { animation: pulse-glow 2s infinite; }
         
         /* Animasi Bintang Bergerak */
-        @keyframes moveStars {
-            0% { background-position: 0 0; }
-            100% { background-position: 200px 200px; }
-        }
-        
+        @keyframes moveStars { 0% { background-position: 0 0; } 100% { background-position: 200px 200px; } }
         .stars-bg {
             background-color: #0b0714;
             background-image: 
@@ -122,23 +112,21 @@
                 radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
                 radial-gradient(1.5px 1.5px at 130px 80px, #ffffff, rgba(0,0,0,0)),
                 radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
-            background-repeat: repeat;
             background-size: 200px 200px;
             animation: moveStars 8s linear infinite; 
         }
 
-        /* Animasi Transisi Perpindahan Halaman */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-tab {
-            animation: fadeSlideUp 0.4s ease-out forwards;
-        }
+        /* Animasi Tab Transisi */
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-tab { animation: fadeSlideUp 0.4s ease-out forwards; }
     </style>
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300 overflow-y-scroll">
 
+    <!-- OVERLAY ANIMASI TRANSISI TEMA -->
+    <div id="theme-overlay" class="fixed inset-0 z-[60] pointer-events-none opacity-0 transition-all ease-[cubic-bezier(0.4,0,0.2,1)]" style="clip-path: circle(0px at calc(100% - 50px) 40px); transition-duration: 800ms;"></div>
+
+    <!-- HEADER / NAVBAR -->
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -151,25 +139,31 @@
                 </div>
 
                 <div class="flex items-center gap-2 md:gap-6">
+                    <!-- Navigasi Utama (Desktop) -->
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
                         <button id="nav-owner" onclick="switchTab('owner')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">OWNER</button>
                     </nav>
 
-                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
+                    <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors relative z-[100]">
+                        <!-- Container Settings (z-[100] untuk memastikan di atas overlay transisi) -->
                         <div class="relative">
-                            <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm hover:rotate-90 duration-500">
-                                <i class="fa-solid fa-gear text-lg"></i>
+                            <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
+                                <!-- Animasi putar gerigi ada pada icon ini -->
+                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-500"></i>
                             </button>
                             
-                            <div id="settings-dropdown" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 z-50">
-                                <button onclick="toggleTheme()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                            <!-- Dropdown Menu Pengaturan -->
+                            <div id="settings-dropdown" class="absolute right-0 mt-3 w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-300 ease-out opacity-0 scale-95 invisible -translate-y-2">
+                                <!-- Toggle Tema -->
+                                <button onclick="triggerThemeWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
                                 <div class="h-[1px] bg-gray-100 dark:bg-gray-800 my-1"></div>
-                                <button onclick="toggleLanguage()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                                <!-- Toggle Bahasa -->
+                                <button onclick="triggerLanguageWipe()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-langText">Bahasa</span>
                                     <span class="flex items-center gap-1.5"><span id="lang-icon" class="text-base">🇮🇩</span> <span id="lang-code">ID</span></span>
                                 </button>
@@ -184,6 +178,7 @@
 
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-10">
 
+        <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
                 <div class="relative flex flex-col items-center p-6 rounded-3xl animate-float">
@@ -218,6 +213,7 @@
             </div>
         </section>
 
+        <!-- SECTION ORDER -->
         <section id="tab-order" class="hidden w-full animate-tab">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
@@ -227,7 +223,7 @@
                             <span class="inline-block bg-brand-goldLight dark:bg-brand-gold/10 text-brand-gold font-bold tracking-widest text-xs md:text-sm px-6 py-2 rounded-full uppercase border border-brand-gold/20 shadow-inner">PRICELIST</span>
                             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-brand-dark dark:text-white mt-4 tracking-wider transition-colors">JOKI UANG CDID</h2>
                             <div class="mt-3">
-                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm">900P = 1M</span>
+                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm animate-pulse">900P = 1M</span>
                             </div>
                         </div>
 
@@ -288,7 +284,6 @@
                         <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
                         
                         <form id="orderForm" class="space-y-4 md:space-y-5">
-                            
                             <div>
                                 <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
                                 <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="Username">
@@ -354,6 +349,7 @@
             </div>
         </section>
 
+        <!-- SECTION OWNER -->
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -383,6 +379,7 @@
 
     </main>
 
+    <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
             <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110">
@@ -404,6 +401,7 @@
         <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
         /* SCRIPT 1: TABS SYSTEM */
         function switchTab(tabId) {
@@ -424,11 +422,39 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* SCRIPT 2: GEAR SETTINGS */
-        function toggleSettings() { document.getElementById('settings-dropdown').classList.toggle('hidden'); }
+        /* SCRIPT 2: LOGIKA ANIMASI GEAR & DROPDOWN */
+        let isMenuOpen = false;
+
+        function toggleSettings() {
+            const d = document.getElementById('settings-dropdown');
+            const g = document.getElementById('gear-icon');
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                g.classList.add('rotate-180');
+                d.classList.remove('invisible', 'opacity-0', 'scale-95', '-translate-y-2');
+                d.classList.add('visible', 'opacity-100', 'scale-100', 'translate-y-0');
+            } else {
+                closeSettings();
+            }
+        }
+
+        function closeSettings() {
+            const d = document.getElementById('settings-dropdown');
+            const g = document.getElementById('gear-icon');
+            isMenuOpen = false;
+            
+            g.classList.remove('rotate-180');
+            d.classList.remove('visible', 'opacity-100', 'scale-100', 'translate-y-0');
+            d.classList.add('invisible', 'opacity-0', 'scale-95', '-translate-y-2');
+        }
+
         document.addEventListener('click', function(e) {
-            const d = document.getElementById('settings-dropdown'), b = document.getElementById('btn-settings');
-            if (d && b && !b.contains(e.target) && !d.contains(e.target)) d.classList.add('hidden');
+            const d = document.getElementById('settings-dropdown');
+            const b = document.getElementById('btn-settings');
+            if (isMenuOpen && b && !b.contains(e.target) && !d.contains(e.target)) {
+                closeSettings();
+            }
         });
 
         /* SCRIPT 3: PRICELIST & CUSTOM */
@@ -442,21 +468,60 @@
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* SCRIPT 4: TEMA */
+        /* SCRIPT 4: ANIMASI RADIAL WIPE UNTUK TEMA */
+        function triggerThemeWipe() {
+            const overlay = document.getElementById('theme-overlay');
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            // Set warna overlay (blur) menjadi background tema tujuan
+            overlay.className = `fixed inset-0 z-[60] pointer-events-none transition-all ease-[cubic-bezier(0.4,0,0.2,1)] duration-[800ms] backdrop-blur-xl ${isDark ? 'bg-[#FAF9F5]/70' : 'bg-[#0b0c10]/70'}`;
+            overlay.style.opacity = '1';
+            
+            // Berikan jeda frame agar transition memicu efek menyebar
+            requestAnimationFrame(() => {
+                overlay.style.clipPath = 'circle(150vw at calc(100% - 50px) 40px)';
+            });
+
+            // Tunggu hingga warna/blur menyebar menutupi layar sepenuhnya
+            setTimeout(() => {
+                // 1. Eksekusi ubah tema HTML
+                toggleTheme(); 
+                
+                // 2. Sekarang gear berputar balik dan menu tertutup
+                closeSettings();
+
+                // 3. Efek blur overlay menghilang perlahan
+                overlay.style.transitionDuration = '400ms';
+                overlay.style.opacity = '0';
+                
+                // 4. Kembalikan radius ke titik gear agar siap digunakan lagi
+                setTimeout(() => {
+                    overlay.style.clipPath = 'circle(0px at calc(100% - 50px) 40px)';
+                    overlay.style.transitionDuration = '800ms';
+                }, 400);
+
+            }, 800); // 800ms adalah waktu yang dibutuhkan untuk menyebar penuh
+        }
+
         function toggleTheme() {
             const h = document.documentElement, i = document.getElementById('theme-icon');
             h.classList.toggle('dark');
             i.className = h.classList.contains('dark') ? 'fa-solid fa-sun text-gray-500' : 'fa-solid fa-moon text-gray-500';
             localStorage.setItem('theme', h.classList.contains('dark') ? 'dark' : 'light');
             updateThemeLabel();
-            document.getElementById('settings-dropdown').classList.add('hidden');
         }
+        
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
         }
 
-        /* SCRIPT 5: LANGUAGE SWITCHER */
+        /* SCRIPT 5: ANIMASI LANGUAGE WIPE */
+        function triggerLanguageWipe() {
+            toggleLanguage(); // Eksekusi ganti bahasa instan
+            closeSettings();  // Tutup menu langsung dengan animasi (gerigi putar balik)
+        }
+
         let currentLang = 'id';
         const dict = {
             id: {
@@ -522,7 +587,6 @@
             document.getElementById('t-btnSend').textContent = t.btnSend;
             document.getElementById('roblox_user').placeholder = 'Username';
             updateThemeLabel();
-            document.getElementById('settings-dropdown').classList.add('hidden');
         }
         updateThemeLabel();
 
