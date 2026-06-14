@@ -23,7 +23,7 @@
     
     <script>
         tailwind.config = {
-            darkMode: 'class', 
+            darkMode: 'class', // Mengaktifkan Manual Dark Mode via Class
             theme: {
                 extend: {
                     colors: {
@@ -46,6 +46,18 @@
         }
     </script>
     <style>
+        /* ========================================= */
+        /* VIEW TRANSITIONS API (Animasi Tema Seamless) */
+        /* ========================================= */
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation: none;
+            mix-blend-mode: normal;
+        }
+        ::view-transition-old(root) { z-index: 1; }
+        ::view-transition-new(root) { z-index: 2; }
+        /* ========================================= */
+
         /* Animasi Lift-Up Card */
         .gold-border-glow {
             border: 2px solid #C5A880;
@@ -145,14 +157,12 @@
                         
                         <div class="relative flex items-center justify-center">
                             
-                            <div id="theme-wave" class="fixed pointer-events-none z-[50]" style="width: 250vmax; height: 250vmax; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0);"></div>
-                            
                             <button id="btn-settings" onclick="toggleSettings()" class="relative z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
-                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"></i>
+                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"></i>
                             </button>
 
                             <div id="settings-dropdown" class="absolute top-full right-0 mt-3 z-[60] w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0 scale-90 invisible -translate-y-4">
-                                <button onclick="triggerThemeWipe()" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
+                                <button onclick="triggerThemeWipe(event)" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold text-gray-700 dark:text-gray-200">
                                     <span id="t-themeText">Mode Gelap</span>
                                     <i id="theme-icon" class="fa-solid fa-moon text-gray-500"></i>
                                 </button>
@@ -406,7 +416,7 @@
                 const navBtn = document.getElementById(`nav-${t}`);
                 if(navBtn) navBtn.className = (t === tabId) ? "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" : "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
                 const navBtnMob = document.getElementById(`nav-${t}-mob`);
-                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110 duration-300" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300";
+                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -457,60 +467,76 @@
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* SCRIPT 4: ANIMASI RADIAL WIPE UNTUK TEMA (GPU Optimized & Smooth) */
-        function triggerThemeWipe() {
+        /* SCRIPT 4: ANIMASI NATIVE VIEW TRANSITIONS UNTUK TEMA */
+        function applyTheme(theme) {
+            const h = document.documentElement;
+            const i = document.getElementById('theme-icon');
+            if (theme === 'dark') {
+                h.classList.add('dark');
+                i.className = 'fa-solid fa-sun text-gray-500';
+            } else {
+                h.classList.remove('dark');
+                i.className = 'fa-solid fa-moon text-gray-500';
+            }
+            localStorage.setItem('theme', theme);
+            updateThemeLabel();
+        }
+
+        function triggerThemeWipe(event) {
             const isDark = document.documentElement.classList.contains('dark');
-            const wave = document.getElementById('theme-wave');
+            const targetTheme = isDark ? 'light' : 'dark';
             const gearBtn = document.getElementById('btn-settings');
             
             gearBtn.disabled = true;
 
-            // Target warna (Inti solid, sisi luar transparent untuk efek blur smooth)
-            const targetColor = isDark ? '250, 249, 245' : '11, 12, 16'; 
+            // Jika browser HP lawas dan tidak support API ini, cukup langsung berubah saja
+            if (!document.startViewTransition) {
+                applyTheme(targetTheme);
+                closeSettings();
+                gearBtn.disabled = false;
+                return;
+            }
+
+            // Ambil titik klik jari untuk pusat lingkaran (dari tombol gerigi)
+            const x = event.clientX || window.innerWidth / 2;
+            const y = event.clientY || window.innerHeight / 2;
             
-            const rect = gearBtn.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
+            // Hitung radius layar agar lingkaran bisa menutupi sampai ujung terpojok
+            const endRadius = Math.hypot(
+                Math.max(x, window.innerWidth - x),
+                Math.max(y, window.innerHeight - y)
+            );
 
-            // Gunakan radial-gradient untuk inner solid & outer soft blur
-            wave.style.background = `radial-gradient(circle, rgba(${targetColor}, 1) 40%, rgba(${targetColor}, 0) 80%)`;
-            wave.style.left = `${centerX}px`;
-            wave.style.top = `${centerY}px`;
-            
-            wave.style.transition = 'none';
-            wave.style.transform = 'translate(-50%, -50%) scale(0)';
-            wave.style.opacity = '1';
+            // Minta browser menyiapkan screenshot untuk transisi
+            const transition = document.startViewTransition(() => {
+                applyTheme(targetTheme);
+            });
 
-            void wave.offsetWidth; // Paksa baca DOM sebelum transisi
+            // Mulai animasikan potongan lingkaran membesar
+            transition.ready.then(() => {
+                const animation = document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${endRadius}px at ${x}px ${y}px)`
+                        ],
+                    },
+                    {
+                        duration: 800, // Kecepatan menyapu layar (Smooth)
+                        easing: 'ease-in-out',
+                        pseudoElement: '::view-transition-new(root)',
+                    }
+                );
 
-            // Ekspansi gelombang memakan waktu 1.2 detik dengan easing yang sangat halus
-            wave.style.transition = 'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
-            wave.style.transform = 'translate(-50%, -50%) scale(1)'; 
-
-            // Waktu tunggu saat layar sudah full warna, sebelum gear tertutup
-            setTimeout(() => {
-                toggleTheme(); 
-                closeSettings(); // Gerigi berputar menutup di titik ini
-
-                wave.style.transition = 'opacity 0.6s ease';
-                wave.style.opacity = '0';
-
-                setTimeout(() => {
-                    wave.style.transform = 'translate(-50%, -50%) scale(0)';
-                    gearBtn.disabled = false; 
-                }, 600);
-
-            }, 800); 
+                // Tepat setelah layar selesai tertutup warna baru, Gerigi tutup
+                animation.onfinish = () => {
+                    closeSettings();
+                    gearBtn.disabled = false;
+                };
+            });
         }
 
-        function toggleTheme() {
-            const h = document.documentElement, i = document.getElementById('theme-icon');
-            h.classList.toggle('dark');
-            i.className = h.classList.contains('dark') ? 'fa-solid fa-sun text-gray-500' : 'fa-solid fa-moon text-gray-500';
-            localStorage.setItem('theme', h.classList.contains('dark') ? 'dark' : 'light');
-            updateThemeLabel();
-        }
-        
+        // Pengecekan otomatis saat web dimuat pertama kali
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
@@ -519,7 +545,8 @@
         /* SCRIPT 5: ANIMASI LANGUAGE WIPE */
         function triggerLanguageWipe() {
             toggleLanguage(); 
-            closeSettings(); // Gerigi langsung putar tutup
+            // Langsung tutup gerigi memutar saat ganti bahasa
+            closeSettings(); 
         }
 
         let currentLang = 'id';
