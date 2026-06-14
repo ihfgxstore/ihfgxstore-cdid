@@ -47,9 +47,15 @@
         }
     </script>
     <style>
+        /* Animasi Lift-Up pada Card */
         .gold-border-glow {
             border: 2px solid #C5A880;
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gold-border-glow:hover {
+            box-shadow: 0 20px 40px -12px rgba(197, 168, 128, 0.5);
+            transform: translateY(-4px);
         }
         
         .tab-active {
@@ -63,6 +69,48 @@
             border-bottom: 3px solid #ffffff;
             color: #ffffff;
         }
+
+        /* --- ANIMASI BARU MULAI DARI SINI --- */
+        
+        /* 1. Animasi Floating Logo */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* 2. Animasi Shimmer Text */
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .text-shimmer {
+            background: linear-gradient(90deg, #C5A880 0%, #111315 50%, #C5A880 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+        .dark .text-shimmer {
+            background: linear-gradient(90deg, #C5A880 0%, #ffffff 50%, #C5A880 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* 3. Animasi Tombol WA (Pulse Glow) */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); }
+        }
+        .btn-wa-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        /* --- AKHIR ANIMASI BARU --- */
         
         /* Animasi Bintang Bergerak */
         @keyframes moveStars {
@@ -119,7 +167,7 @@
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
                         <!-- Tombol Pengaturan (Gear) -->
                         <div class="relative">
-                            <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
+                            <button id="btn-settings" onclick="toggleSettings()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm hover:rotate-90 duration-500">
                                 <i class="fa-solid fa-gear text-lg"></i>
                             </button>
                             
@@ -150,13 +198,15 @@
         <!-- SECTION HOME -->
         <section id="tab-home" class="block w-full animate-tab">
             <div class="flex flex-col items-center justify-center text-center space-y-6 max-w-md mx-auto py-12 md:py-20">
-                <div class="relative flex flex-col items-center p-6 rounded-3xl">
+                <!-- Terapkan Animasi Float Disini -->
+                <div class="relative flex flex-col items-center p-6 rounded-3xl animate-float">
                     <div class="relative">
                         <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
                         <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
                     </div>
                     
-                    <h1 class="font-heading font-extrabold text-5xl tracking-widest text-brand-dark dark:text-white transition-colors mt-6">IHFGX</h1>
+                    <!-- Terapkan Animasi Shimmer Teks Disini -->
+                    <h1 class="font-heading font-extrabold text-5xl tracking-widest mt-6 text-shimmer">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
                 </div>
 
@@ -164,7 +214,7 @@
                     <p class="text-gray-600 dark:text-gray-300 font-medium text-sm md:text-base leading-relaxed transition-colors">
                         <span id="t-subtitle">Solusi tercepat dan teraman untuk kebutuhan uang CDID kamu.</span><br>
                         <span class="text-brand-dark dark:text-white font-extrabold cursor-pointer hover:text-brand-gold dark:hover:text-brand-gold transition-colors inline-flex items-center gap-1 mt-1" onclick="switchTab('order')">
-                            <span id="t-orderNow">Yuk, Order Sekarang!</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                            <span id="t-orderNow">Yuk, Order Sekarang!</span> <i class="fa-solid fa-arrow-right text-xs transform hover:translate-x-1 transition-transform"></i>
                         </span>
                     </p>
                 </div>
@@ -188,59 +238,59 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
                 
                 <div class="lg:col-span-7 w-full">
-                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 gold-border-glow relative hover:shadow-xl transition-all duration-300">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 gold-border-glow relative">
                         <div class="text-center mb-10 border-b border-brand-gold/20 dark:border-gray-700 pb-10 transition-colors">
                             <span class="inline-block bg-brand-goldLight dark:bg-brand-gold/10 text-brand-gold font-bold tracking-widest text-xs md:text-sm px-6 py-2 rounded-full uppercase border border-brand-gold/20 shadow-inner">PRICELIST</span>
                             <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-brand-dark dark:text-white mt-4 tracking-wider transition-colors">JOKI UANG CDID</h2>
                             <div class="mt-3">
-                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm">900P = 1M</span>
+                                <span class="bg-brand-gold text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm animate-pulse">900P = 1M</span>
                             </div>
                         </div>
 
-                        <div class="space-y-6">
-                            <!-- Paket 10M -->
-                            <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                        <div class="space-y-4">
+                            <!-- Paket 10M (Ditambahkan class hover untuk interaksi) -->
+                            <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">10M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">9K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                             <!-- Paket 30M -->
-                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">30M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">27K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                             <!-- Paket 50M -->
-                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">45K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                             <!-- Paket 100M -->
-                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">90K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                             <!-- Paket 150M -->
-                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-2 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-colors">
+                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
                                 <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
                                 <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
                                 <div class="flex items-center gap-3">
                                     <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">135K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -255,7 +305,7 @@
                 </div>
 
                 <div class="lg:col-span-5 w-full">
-                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative transition-colors duration-300">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 gold-border-glow relative">
                         <h2 id="t-formTitle" class="font-heading font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR PEMBELIAN JOKI</h2>
                         
                         <form id="orderForm" class="space-y-4 md:space-y-5">
@@ -263,17 +313,17 @@
                             <!-- INPUT USERNAME ROBLOX -->
                             <div>
                                 <label id="t-lblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
-                                <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="Username">
+                                <input type="text" id="roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="Username">
                             </div>
 
                             <div>
                                 <label id="t-lbl2fa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Verifikasi 2 Langkah (2FA) :</label>
                                 <div class="flex gap-3">
-                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all bg-gray-50/50 dark:bg-gray-800">
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all duration-300 bg-gray-50/50 dark:bg-gray-800 hover:bg-brand-gold/5">
                                         <input type="radio" name="v2step" value="Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
                                         <span id="t-lblActive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Aktif (Iya)</span>
                                     </label>
-                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all bg-gray-50/50 dark:bg-gray-800">
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-brand-gold dark:hover:border-brand-gold transition-all duration-300 bg-gray-50/50 dark:bg-gray-800 hover:bg-brand-gold/5">
                                         <input type="radio" name="v2step" value="Tidak Aktif" class="w-4 h-4 text-brand-gold focus:ring-brand-gold" required>
                                         <span id="t-lblInactive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Tidak Aktif</span>
                                     </label>
@@ -282,12 +332,12 @@
 
                             <div>
                                 <label id="t-lblWa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Nomor WhatsApp Aktif :</label>
-                                <input type="tel" id="client_wa" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-colors" placeholder="081234567890">
+                                <input type="tel" id="client_wa" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="081234567890">
                             </div>
 
                             <div>
                                 <label id="t-lblPack" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Pilih Nominal Paket Joki :</label>
-                                <select id="nominal_package" onchange="toggleCustomInput()" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-colors">
+                                <select id="nominal_package" onchange="toggleCustomInput()" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-all duration-300 hover:border-gray-300 cursor-pointer">
                                     <option value="10M|9000">10M — Rp 9.000</option>
                                     <option value="30M|27000">30M — Rp 27.000</option>
                                     <option value="50M|45000">50M — Rp 45.000</option>
@@ -310,14 +360,15 @@
 
                             <div>
                                 <label id="t-lblPay" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Metode Pembayaran Utama :</label>
-                                <select id="payment_method" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-colors">
+                                <select id="payment_method" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-brand-gold dark:focus:border-brand-gold bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-all duration-300 hover:border-gray-300 cursor-pointer">
                                     <option value="QRIS">QRIS</option>
                                     <option value="DANA/GOPAY">DANA / GOPAY</option>
                                 </select>
                             </div>
 
-                            <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-extrabold py-3.5 px-6 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-2 mt-2 text-sm md:text-base">
-                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <!-- Ditambahkan animasi detak jantung / Pulse Glow -->
+                            <button type="button" onclick="sendOrderToWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20b858] text-white font-extrabold py-4 px-6 rounded-2xl transition-all duration-300 btn-wa-glow flex items-center justify-center gap-2 mt-4 text-sm md:text-base group">
+                                <i class="fa-brands fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
                                 <span id="t-btnSend">KIRIM ORDER SEKARANG</span>
                             </button>
                         </form>
@@ -338,7 +389,7 @@
                             <p class="text-sm md:text-base text-gray-400">15 yo</p>
                         </div>
                         <div class="flex items-center justify-center md:justify-start gap-3 pt-6">
-                            <a href="https://instagram.com/hpissnc_" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                            <a href="https://instagram.com/hpissnc_" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-brand-gold transition-colors">
                                 <i class="fa-brands fa-instagram text-2xl"></i>
                                 <span class="font-medium">hpissnc_</span>
                             </a>
@@ -346,7 +397,7 @@
                     </div>
 
                     <div class="flex justify-center md:justify-end">
-                        <div class="w-64 h-64 md:w-72 md:h-72 bg-[#9D34F0] rounded-[3rem] flex items-center justify-center shadow-lg relative overflow-hidden border-4 border-purple-500/20">
+                        <div class="w-64 h-64 md:w-72 md:h-72 bg-[#9D34F0] rounded-[3rem] flex items-center justify-center shadow-lg relative overflow-hidden border-4 border-purple-500/20 hover:scale-105 transition-transform duration-500">
                             <i class="fa-solid fa-user-secret text-[8rem] md:text-[10rem] text-white"></i>
                         </div>
                     </div>
@@ -359,22 +410,22 @@
     <!-- NAVIGASI BAWAH KHUSUS UNTUK HP -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-brand-darkBg/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50">
         <div class="flex justify-around items-center h-16 px-2">
-            <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors">
+            <button id="nav-home-mob" onclick="switchTab('home')" class="flex flex-col items-center gap-1 w-full mob-active transition-colors hover:scale-110">
                 <i class="fa-solid fa-house text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">HOME</span>
             </button>
-            <button id="nav-order-mob" onclick="switchTab('order')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors">
+            <button id="nav-order-mob" onclick="switchTab('order')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110">
                 <i class="fa-solid fa-cart-shopping text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">ORDER</span>
             </button>
-            <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors">
+            <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110">
                 <i class="fa-solid fa-user text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">OWNER</span>
             </button>
         </div>
     </nav>
 
-    <footer class="bg-brand-bg dark:bg-brand-darkBg border-t border-gray-100 dark:border-gray-800 py-6 text-center transition-colors">
+    <footer class="bg-brand-bg dark:bg-brand-darkBg border-t border-gray-100 dark:border-gray-800 py-6 text-center transition-colors pb-24 md:pb-6">
         <p class="text-xs text-gray-400 font-medium tracking-wider">© 2026 IHFGX STORE. All Rights Reserved.</p>
     </footer>
 
