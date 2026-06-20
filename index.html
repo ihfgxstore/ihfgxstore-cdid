@@ -16,14 +16,12 @@
     <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?sz=w32&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
-            darkMode: 'class', // Mengaktifkan Manual Dark Mode via Class
+            darkMode: 'class', 
             theme: {
                 extend: {
                     colors: {
@@ -56,9 +54,8 @@
         }
         ::view-transition-old(root) { z-index: 1; }
         ::view-transition-new(root) { z-index: 2; }
-        /* ========================================= */
 
-        /* Animasi Lift-Up Card */
+        /* Animasi Glow Order Biasa */
         .gold-border-glow {
             border: 2px solid #C5A880;
             box-shadow: 0 10px 30px -10px rgba(197, 168, 128, 0.2);
@@ -69,67 +66,47 @@
             transform: translateY(-4px);
         }
         
+        /* Animasi Glow Night Market Khusus (Ungu) */
+        .purple-border-glow {
+            border: 2px solid #9D34F0;
+            box-shadow: 0 10px 30px -10px rgba(157, 52, 240, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .purple-border-glow:hover {
+            box-shadow: 0 20px 40px -12px rgba(157, 52, 240, 0.5);
+            transform: translateY(-4px);
+        }
+        
+        /* Navigasi Aktif Styling */
         .tab-active { border-bottom: 3px solid #111315; color: #111315; font-weight: 700; }
         .dark .tab-active { border-bottom: 3px solid #ffffff; color: #ffffff; }
+        .tab-nm-active { border-bottom: 3px solid #9D34F0; color: #9D34F0 !important; font-weight: 700; }
+        .mob-nm-active { color: #9D34F0 !important; }
 
-        /* Animasi Floating Logo */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
+        /* Floating & Shimmer */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         .animate-float { animation: float 4s ease-in-out infinite; }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        .text-shimmer { background: linear-gradient(90deg, #C5A880 0%, #111315 50%, #C5A880 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+        .dark .text-shimmer { background: linear-gradient(90deg, #C5A880 0%, #ffffff 50%, #C5A880 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
 
-        /* Animasi Shimmer Text */
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-        .text-shimmer {
-            background: linear-gradient(90deg, #C5A880 0%, #111315 50%, #C5A880 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s linear infinite;
-        }
-        .dark .text-shimmer {
-            background: linear-gradient(90deg, #C5A880 0%, #ffffff 50%, #C5A880 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s linear infinite;
-        }
-
-        /* Animasi Tombol WA (Pulse Glow) */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); }
-            50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); }
-        }
+        /* Pulse Glow Buttons */
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: scale(1); } 50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); transform: scale(1.02); } }
         .btn-wa-glow { animation: pulse-glow 2.5s infinite ease-in-out; }
-        
-        /* Animasi Bintang Bergerak */
-        @keyframes moveStars {
-            0% { background-position: 0 0; }
-            100% { background-position: 200px 200px; }
-        }
+        @keyframes pulse-glow-purple { 0%, 100% { box-shadow: 0 0 15px rgba(157, 52, 240, 0.4); transform: scale(1); } 50% { box-shadow: 0 0 25px rgba(157, 52, 240, 0.7); transform: scale(1.02); } }
+        .btn-wa-glow-purple { animation: pulse-glow-purple 2.5s infinite ease-in-out; }
+
+        /* Stars Background */
+        @keyframes moveStars { 0% { background-position: 0 0; } 100% { background-position: 200px 200px; } }
         .stars-bg {
             background-color: #0b0714;
-            background-image: 
-                radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 160px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 130px 80px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
-            background-repeat: repeat;
+            background-image: radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 50px 160px, #ffffff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 130px 80px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0));
             background-size: 200px 200px;
             animation: moveStars 8s linear infinite; 
         }
 
-        /* Animasi Transisi Tab */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Tab Transition */
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-tab { animation: fadeSlideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
     </style>
 </head>
@@ -150,15 +127,21 @@
                     <nav class="hidden md:flex space-x-8">
                         <button id="nav-home" onclick="switchTab('home')" class="tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">HOME</button>
                         <button id="nav-order" onclick="switchTab('order')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">ORDER</button>
+                        
+                        <button id="nav-nightmarket" onclick="switchTab('nightmarket')" class="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" style="display:none;">
+                            <i class="fa-solid fa-moon mr-1"></i> NIGHT
+                        </button>
+                        
                         <button id="nav-owner" onclick="switchTab('owner')" class="text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200">OWNER</button>
                     </nav>
 
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-2 md:pl-6 ml-2 md:ml-0 transition-colors">
-                        
                         <div class="relative flex items-center justify-center">
                             
+                            <div id="theme-wave" class="fixed pointer-events-none z-[50]" style="width: 250vmax; height: 250vmax; border-radius: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0);"></div>
+                            
                             <button id="btn-settings" onclick="toggleSettings()" class="relative z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 shadow-sm">
-                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"></i>
+                                <i id="gear-icon" class="fa-solid fa-gear text-lg transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"></i>
                             </button>
 
                             <div id="settings-dropdown" class="absolute top-full right-0 mt-3 z-[60] w-48 bg-white dark:bg-brand-darkCard rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-2 origin-top-right transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] opacity-0 scale-90 invisible -translate-y-4">
@@ -175,7 +158,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
@@ -189,7 +171,6 @@
                         <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
                         <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
                     </div>
-                    
                     <h1 class="font-heading font-extrabold text-5xl tracking-widest mt-6 text-shimmer">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
                 </div>
@@ -230,44 +211,44 @@
                         </div>
 
                         <div class="space-y-6">
-                            <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">10M</div>
-                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                            <div onclick="selectDropdownPackage('10M|9000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl transition-all">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">10M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3">
-                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">9K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">9K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">30M</div>
-                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                            <div onclick="selectDropdownPackage('30M|27000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl transition-all">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">30M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3">
-                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">27K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">27K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
-                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                            <div onclick="selectDropdownPackage('50M|45000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl transition-all">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">50M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3">
-                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">45K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">45K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
-                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                            <div onclick="selectDropdownPackage('100M|90000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl transition-all">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">100M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3">
-                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">90K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">90K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
-                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl">
-                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">150M</div>
-                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                            <div onclick="selectDropdownPackage('150M|135000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group hover:scale-[1.02] hover:bg-brand-gold/5 rounded-xl transition-all">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">150M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1"></div>
                                 <div class="flex items-center gap-3">
-                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">135K</span>
-                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide">135K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-brand-gold flex items-center justify-center bg-brand-goldLight dark:bg-gray-800 group-hover:bg-brand-gold shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-brand-gold group-hover:text-white"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -351,6 +332,106 @@
             </div>
         </section>
 
+        <section id="tab-nightmarket" class="hidden w-full animate-tab">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-center">
+                
+                <div class="lg:col-span-7 w-full">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-8 md:p-12 purple-border-glow relative hover:shadow-xl transition-all duration-300">
+                        <div class="text-center mb-10 border-b border-purple-500/20 dark:border-gray-700 pb-10 transition-colors">
+                            <span class="inline-flex items-center gap-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-bold tracking-widest text-xs md:text-sm px-6 py-2 rounded-full uppercase border border-purple-500/20 shadow-inner animate-pulse">
+                                <i class="fa-solid fa-moon"></i> NIGHT MARKET
+                            </span>
+                            <h2 id="t-nmPricelist" class="font-heading font-extrabold text-2xl md:text-3xl text-purple-700 dark:text-purple-400 mt-4 tracking-wider transition-colors">PROMO MALAM CDID</h2>
+                            <div class="mt-3">
+                                <span class="bg-purple-600 text-white font-bold text-xs md:text-sm px-4 py-1.5 rounded-full shadow-sm">HARGA SPESIAL</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div onclick="selectNMPackage('50M|25000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-purple-500/5 rounded-xl">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">50M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-purple-600 dark:text-purple-400 tracking-wide transition-colors">25K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-purple-500 flex items-center justify-center bg-purple-50 dark:bg-gray-800 group-hover:bg-purple-600 transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-purple-500 group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <div onclick="selectNMPackage('100M|50000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-purple-500/5 rounded-xl">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">100M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-purple-600 dark:text-purple-400 tracking-wide transition-colors">50K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-purple-500 flex items-center justify-center bg-purple-50 dark:bg-gray-800 group-hover:bg-purple-600 transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-purple-500 group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                            <div onclick="selectNMPackage('200M|100000')" class="flex items-center justify-between py-3 px-3 border-b border-dashed border-gray-200 dark:border-gray-700 cursor-pointer group transition-all duration-300 hover:scale-[1.02] hover:bg-purple-500/5 rounded-xl">
+                                <div class="font-sans font-extrabold text-xl md:text-2xl text-brand-dark dark:text-white tracking-wide transition-colors">200M</div>
+                                <div class="flex-grow border-t-2 border-dotted border-gray-300 dark:border-gray-600 mx-4 relative top-1 transition-colors"></div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-sans font-extrabold text-xl md:text-2xl text-purple-600 dark:text-purple-400 tracking-wide transition-colors">100K</span>
+                                    <div class="w-6 h-6 md:w-7 md:h-7 rounded border-[2.5px] border-purple-500 flex items-center justify-center bg-purple-50 dark:bg-gray-800 group-hover:bg-purple-600 transition-colors shadow-sm"><i class="fa-solid fa-check text-xs md:text-sm text-purple-500 group-hover:text-white"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 w-full">
+                    <div class="bg-white dark:bg-brand-darkCard rounded-[2.5rem] p-6 md:p-10 purple-border-glow relative transition-colors duration-300">
+                        <h2 id="t-nmFormTitle" class="font-heading font-extrabold text-xl md:text-2xl text-purple-700 dark:text-purple-400 text-center tracking-wider mb-6 pb-4 border-b dark:border-gray-700 transition-colors">FORMULIR NIGHT MARKET</h2>
+                        
+                        <form id="nightMarketForm" class="space-y-4 md:space-y-5">
+                            <div>
+                                <label id="t-nmLblUser" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Username Roblox :</label>
+                                <input type="text" id="nm_roblox_user" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:focus:border-purple-500 bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="Username">
+                            </div>
+
+                            <div>
+                                <label id="t-nmLbl2fa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Verifikasi 2 Langkah (2FA) :</label>
+                                <div class="flex gap-3">
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 bg-gray-50/50 dark:bg-gray-800 hover:bg-purple-500/5">
+                                        <input type="radio" name="nm_v2step" value="Aktif" class="w-4 h-4 text-purple-500 focus:ring-purple-500" required>
+                                        <span id="t-nmLblActive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Aktif (Iya)</span>
+                                    </label>
+                                    <label class="flex-1 border-2 border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2.5 md:py-3 flex items-center justify-center cursor-pointer hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-300 bg-gray-50/50 dark:bg-gray-800 hover:bg-purple-500/5">
+                                        <input type="radio" name="nm_v2step" value="Tidak Aktif" class="w-4 h-4 text-purple-500 focus:ring-purple-500" required>
+                                        <span id="t-nmLblInactive" class="ml-2 font-medium text-sm md:text-base text-gray-700 dark:text-gray-200">Tidak Aktif</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label id="t-nmLblWa" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Nomor WhatsApp Aktif :</label>
+                                <input type="tel" id="nm_client_wa" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:focus:border-purple-500 bg-gray-50/50 dark:bg-gray-800 text-brand-dark dark:text-white font-medium text-sm md:text-base transition-all duration-300 hover:border-gray-300" placeholder="081234567890">
+                            </div>
+
+                            <div>
+                                <label id="t-nmLblPack" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Pilih Nominal Paket Joki :</label>
+                                <select id="nm_nominal_package" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:focus:border-purple-500 bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-all duration-300 hover:border-gray-300 cursor-pointer">
+                                    <option value="50M|25000">50M — Rp 25.000</option>
+                                    <option value="100M|50000">100M — Rp 50.000</option>
+                                    <option value="200M|100000">200M — Rp 100.000</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label id="t-nmLblPay" class="block text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5 transition-colors">Metode Pembayaran Utama :</label>
+                                <select id="nm_payment_method" required class="w-full px-4 py-2.5 md:py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:border-purple-500 dark:focus:border-purple-500 bg-gray-50 dark:bg-gray-800 text-brand-dark dark:text-white font-semibold text-sm md:text-base transition-all duration-300 hover:border-gray-300 cursor-pointer">
+                                    <option value="QRIS">QRIS</option>
+                                    <option value="DANA/GOPAY">DANA / GOPAY</option>
+                                </select>
+                            </div>
+
+                            <button type="button" onclick="sendNightMarketToWhatsApp()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-4 px-6 rounded-2xl transition-all duration-300 btn-wa-glow-purple flex items-center justify-center gap-2 mt-4 text-sm md:text-base group">
+                                <i class="fa-brands fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
+                                <span id="t-nmBtnSend">KIRIM ORDER NIGHT MARKET</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="tab-owner" class="hidden w-full animate-tab">
             <div class="max-w-4xl mx-auto stars-bg rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden text-white border border-gray-800">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
@@ -390,6 +471,12 @@
                 <i class="fa-solid fa-cart-shopping text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">ORDER</span>
             </button>
+
+            <button id="nav-nightmarket-mob" onclick="switchTab('nightmarket')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors hover:scale-110 duration-300" style="display:none;">
+                <i class="fa-solid fa-moon text-lg"></i>
+                <span class="text-[10px] font-bold tracking-wider">NIGHT</span>
+            </button>
+
             <button id="nav-owner-mob" onclick="switchTab('owner')" class="flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300">
                 <i class="fa-solid fa-user text-lg"></i>
                 <span class="text-[10px] font-bold tracking-wider">OWNER</span>
@@ -402,24 +489,70 @@
     </footer>
 
     <script>
-        /* SCRIPT 1: TABS SYSTEM */
+        /* SCRIPT 1: TABS SYSTEM + NIGHT MARKET CHECK */
         function switchTab(tabId) {
-            ['home', 'order', 'owner'].forEach(t => {
+            ['home', 'order', 'nightmarket', 'owner'].forEach(t => {
                 const contentDiv = document.getElementById(`tab-${t}`);
-                if (t === tabId) {
-                    contentDiv.classList.remove('hidden');
-                    contentDiv.classList.add('block');
-                } else {
-                    contentDiv.classList.remove('block');
-                    contentDiv.classList.add('hidden');
+                if (contentDiv) {
+                    if (t === tabId) {
+                        contentDiv.classList.remove('hidden');
+                        contentDiv.classList.add('block');
+                    } else {
+                        contentDiv.classList.remove('block');
+                        contentDiv.classList.add('hidden');
+                    }
                 }
+                
+                let activeClassDesk = t === 'nightmarket' ? 'tab-nm-active' : 'tab-active';
+                let activeClassMob = t === 'nightmarket' ? 'mob-nm-active' : 'mob-active';
+
                 const navBtn = document.getElementById(`nav-${t}`);
-                if(navBtn) navBtn.className = (t === tabId) ? "tab-active py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200" : "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                if(navBtn) {
+                    if (t === tabId) {
+                        navBtn.className = `${activeClassDesk} py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200`;
+                    } else {
+                        navBtn.className = "text-gray-500 dark:text-gray-400 hover:text-brand-dark dark:hover:text-white py-2 px-1 text-sm font-medium tracking-wide uppercase transition-all duration-200";
+                        if (t === 'nightmarket') navBtn.classList.add('hover:text-purple-600', 'dark:hover:text-purple-400');
+                    }
+                }
+
                 const navBtnMob = document.getElementById(`nav-${t}-mob`);
-                if(navBtnMob) navBtnMob.className = (t === tabId) ? "flex flex-col items-center gap-1 w-full mob-active transition-colors" : "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors";
+                if(navBtnMob) {
+                    if (t === tabId) {
+                        navBtnMob.className = `flex flex-col items-center gap-1 w-full ${activeClassMob} transition-colors hover:scale-110 duration-300`;
+                    } else {
+                        navBtnMob.className = "flex flex-col items-center gap-1 w-full text-gray-400 dark:text-gray-500 hover:text-brand-dark dark:hover:text-white transition-colors hover:scale-110 duration-300";
+                        if (t === 'nightmarket') navBtnMob.classList.add('hover:text-purple-600', 'dark:hover:text-purple-400');
+                    }
+                }
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // FUNGSI AUTO BUKA-TUTUP NIGHT MARKET (Jam 20:00 s.d 23:59 Waktu Lokal HP)
+        function checkNightMarketTime() {
+            const hour = new Date().getHours();
+            const isOpen = hour >= 20 && hour <= 23; 
+            
+            const navDesktop = document.getElementById('nav-nightmarket');
+            const navMobile = document.getElementById('nav-nightmarket-mob');
+            const nightSection = document.getElementById('tab-nightmarket');
+            
+            if (isOpen) {
+                if(navDesktop) navDesktop.style.display = 'inline-block';
+                if(navMobile) navMobile.style.display = 'flex';
+            } else {
+                if(navDesktop) navDesktop.style.display = 'none';
+                if(navMobile) navMobile.style.display = 'none';
+                
+                // Jika sedang di halaman Night Market lalu jam berubah lewat dari 12 malam, tendang ke Home
+                if (nightSection && nightSection.classList.contains('block')) {
+                    switchTab('home');
+                }
+            }
+        }
+        checkNightMarketTime(); // Cek saat pertama buka web
+        setInterval(checkNightMarketTime, 60000); // Cek ulang setiap 1 menit
 
         /* SCRIPT 2: LOGIKA ANIMASI GEAR & DROPDOWN */
         let isMenuOpen = false;
@@ -456,7 +589,7 @@
             }
         });
 
-        /* SCRIPT 3: PRICELIST & CUSTOM */
+        /* SCRIPT 3: PRICELIST & CUSTOM (Khusus Order Biasa) */
         function selectDropdownPackage(v) { const d = document.getElementById('nominal_package'); d.value = v; toggleCustomInput(); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         function toggleCustomInput() {
             const p = document.getElementById('nominal_package').value, c = document.getElementById('custom_order_box');
@@ -465,6 +598,13 @@
         function calculateCustomPrice() {
             const m = parseInt(document.getElementById('custom_m_amount').value) || 0;
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
+        }
+
+        /* KHUSUS DROPDOWN NIGHT MARKET */
+        function selectNMPackage(v) {
+            const d = document.getElementById('nm_nominal_package');
+            d.value = v;
+            d.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         /* SCRIPT 4: ANIMASI NATIVE VIEW TRANSITIONS UNTUK TEMA */
@@ -489,7 +629,6 @@
             
             gearBtn.disabled = true;
 
-            // Jika browser HP lawas dan tidak support API ini, cukup langsung berubah saja
             if (!document.startViewTransition) {
                 applyTheme(targetTheme);
                 closeSettings();
@@ -497,22 +636,18 @@
                 return;
             }
 
-            // Ambil titik klik jari untuk pusat lingkaran (dari tombol gerigi)
             const x = event.clientX || window.innerWidth / 2;
             const y = event.clientY || window.innerHeight / 2;
             
-            // Hitung radius layar agar lingkaran bisa menutupi sampai ujung terpojok
             const endRadius = Math.hypot(
                 Math.max(x, window.innerWidth - x),
                 Math.max(y, window.innerHeight - y)
             );
 
-            // Minta browser menyiapkan screenshot untuk transisi
             const transition = document.startViewTransition(() => {
                 applyTheme(targetTheme);
             });
 
-            // Mulai animasikan potongan lingkaran membesar
             transition.ready.then(() => {
                 const animation = document.documentElement.animate(
                     {
@@ -522,13 +657,12 @@
                         ],
                     },
                     {
-                        duration: 800, // Kecepatan menyapu layar (Smooth)
+                        duration: 800, 
                         easing: 'ease-in-out',
                         pseudoElement: '::view-transition-new(root)',
                     }
                 );
 
-                // Tepat setelah layar selesai tertutup warna baru, Gerigi tutup
                 animation.onfinish = () => {
                     closeSettings();
                     gearBtn.disabled = false;
@@ -536,7 +670,6 @@
             });
         }
 
-        // Pengecekan otomatis saat web dimuat pertama kali
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-icon').className = 'fa-solid fa-sun text-gray-500';
@@ -545,7 +678,6 @@
         /* SCRIPT 5: ANIMASI LANGUAGE WIPE */
         function triggerLanguageWipe() {
             toggleLanguage(); 
-            // Langsung tutup gerigi memutar saat ganti bahasa
             closeSettings(); 
         }
 
@@ -564,7 +696,9 @@
                 btnSend: 'KIRIM ORDER SEKARANG',
                 errUser: 'Mohon isi Username Roblox!', err2fa: 'Pilih status 2FA!', errWa: 'Isi Nomor WA!', errCustom: 'Masukkan M yang valid!',
                 waInvoice: '*IHFGX STORE — INVOICE ORDER JOKI*', waUser: '👤 Username Roblox :', wa2fa: '🔐 2-Step Verif     :', waPack: '📦 Paket Nominal    :', waTotal: '💳 Total Pembayaran :', waPay: '💰 Metode Bayar     :', waNo: '📱 No. WhatsApp     :',
-                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor pembayaran ya min, terima kasih!'
+                waFooter: 'Mohon segera diproses pesanan dan diinfokan nomor pembayaran ya min, terima kasih!',
+                // TRANSLASI NIGHT MARKET
+                nmPricelist: 'PROMO MALAM CDID', nmFormTitle: 'FORMULIR NIGHT MARKET', nmBtnSend: 'KIRIM ORDER NIGHT MARKET', nmInvoice: '*IHFGX STORE — INVOICE NIGHT MARKET*'
             },
             en: {
                 themeText: 'Dark Mode', langText: 'Language',
@@ -579,7 +713,9 @@
                 btnSend: 'SEND ORDER NOW',
                 errUser: 'Please enter Roblox Username!', err2fa: 'Please select 2FA status!', errWa: 'Please enter WhatsApp!', errCustom: 'Please enter a valid amount!',
                 waInvoice: '*IHFGX STORE — JOKI ORDER INVOICE*', waUser: '👤 Roblox Username :', wa2fa: '🔐 2-Step Verif     :', waPack: '📦 Package Nominal  :', waTotal: '💳 Total Payment    :', waPay: '💰 Payment Method   :', waNo: '📱 WhatsApp No.     :',
-                waFooter: 'Please process the order and provide the payment details, thank you!'
+                waFooter: 'Please process the order and provide the payment details, thank you!',
+                // TRANSLASI NIGHT MARKET
+                nmPricelist: 'CDID NIGHT PROMO', nmFormTitle: 'NIGHT MARKET FORM', nmBtnSend: 'SEND NIGHT MARKET ORDER', nmInvoice: '*IHFGX STORE — NIGHT MARKET INVOICE*'
             }
         };
 
@@ -600,6 +736,8 @@
             document.getElementById('t-joinChannel').textContent = t.joinChannel;
             document.getElementById('t-bonusInfo').textContent = t.bonusInfo;
             document.getElementById('t-bonusWarn').textContent = t.bonusWarn;
+            
+            // Text Order Biasa
             document.getElementById('t-formTitle').textContent = t.formTitle;
             document.getElementById('t-lblUser').textContent = t.lblUser;
             document.getElementById('t-lbl2fa').textContent = t.lbl2fa;
@@ -613,11 +751,25 @@
             document.getElementById('t-lblPay').textContent = t.lblPay;
             document.getElementById('t-btnSend').textContent = t.btnSend;
             document.getElementById('roblox_user').placeholder = 'Username';
+            
+            // Text Night Market
+            document.getElementById('t-nmPricelist').textContent = t.nmPricelist;
+            document.getElementById('t-nmFormTitle').textContent = t.nmFormTitle;
+            document.getElementById('t-nmLblUser').textContent = t.lblUser;
+            document.getElementById('t-nmLbl2fa').textContent = t.lbl2fa;
+            document.getElementById('t-nmLblActive').textContent = t.lblActive;
+            document.getElementById('t-nmLblInactive').textContent = t.lblInactive;
+            document.getElementById('t-nmLblWa').textContent = t.lblWa;
+            document.getElementById('t-nmLblPack').textContent = t.lblPack;
+            document.getElementById('t-nmLblPay').textContent = t.lblPay;
+            document.getElementById('t-nmBtnSend').textContent = t.nmBtnSend;
+            document.getElementById('nm_roblox_user').placeholder = 'Username';
+
             updateThemeLabel();
         }
         updateThemeLabel();
 
-        /* SCRIPT 6: WHATSAPP SUBMIT */
+        /* SCRIPT 6: WHATSAPP SUBMIT (ORDER BIASA) */
         function sendOrderToWhatsApp() {
             const adminWhatsAppNumber = "628133739151"; 
             const t = dict[currentLang]; 
@@ -636,6 +788,38 @@
 
             const messageText = encodeURIComponent(
                 `${t.waInvoice}\n` +
+                `------------------------------------\n` +
+                `${t.waUser} ${username}\n` +
+                `${t.wa2fa} ${v2step.value}\n` +
+                `${t.waPack} ${selectedNominal}\n` +
+                `${t.waTotal} Rp ${parseInt(selectedPrice).toLocaleString('id-ID')}\n` +
+                `${t.waPay} ${payment}\n` +
+                `${t.waNo} ${clientWa}\n` +
+                `------------------------------------\n` +
+                `${t.waFooter}`
+            );
+            window.open(`https://wa.me/${adminWhatsAppNumber}?text=${messageText}`, '_blank');
+        }
+
+        /* SCRIPT 7: WHATSAPP SUBMIT (NIGHT MARKET) */
+        function sendNightMarketToWhatsApp() {
+            const adminWhatsAppNumber = "628133739151"; 
+            const t = dict[currentLang]; 
+            const username = document.getElementById('nm_roblox_user').value.trim();
+            const v2step = document.querySelector('input[name="nm_v2step"]:checked');
+            const clientWa = document.getElementById('nm_client_wa').value.trim();
+            const packageValue = document.getElementById('nm_nominal_package').value;
+            const payment = document.getElementById('nm_payment_method').value;
+            
+            if (!username) { alert(t.errUser); return; }
+            if (!v2step) { alert(t.err2fa); return; }
+            if (!clientWa) { alert(t.errWa); return; }
+
+            let selectedNominal = packageValue.split('|')[0];
+            let selectedPrice = packageValue.split('|')[1];
+
+            const messageText = encodeURIComponent(
+                `${t.nmInvoice}\n` +
                 `------------------------------------\n` +
                 `${t.waUser} ${username}\n` +
                 `${t.wa2fa} ${v2step.value}\n` +
