@@ -16,6 +16,8 @@
     <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?sz=w32&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -54,6 +56,12 @@
         }
         ::view-transition-old(root) { z-index: 1; }
         ::view-transition-new(root) { z-index: 2; }
+        /* ========================================= */
+
+        /* Animasi Pop-Up & Getar */
+        @keyframes pop-in { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes vibrate { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        .pop-anim { animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, vibrate 0.3s ease-in-out infinite 0.7s; }
 
         /* Animasi Glow Order Biasa */
         .gold-border-glow {
@@ -112,6 +120,18 @@
 </head>
 <body class="bg-brand-bg dark:bg-brand-darkBg font-sans min-h-screen flex flex-col justify-between text-gray-800 dark:text-gray-100 selection:bg-brand-gold selection:text-white transition-colors duration-300 overflow-y-scroll">
 
+    <div id="nm-popup" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="relative bg-white dark:bg-brand-darkCard p-6 rounded-3xl border-2 border-purple-500 shadow-2xl w-full max-w-sm pop-anim">
+            <button onclick="closeNM()" class="absolute -top-3 -right-3 bg-red-500 text-white w-8 h-8 rounded-full shadow-lg hover:bg-red-600 transition"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center">
+                <div class="text-5xl mb-4 text-purple-500 animate-pulse"><i class="fa-solid fa-moon"></i></div>
+                <h3 class="text-2xl font-bold dark:text-white mb-1">Night Market Buka!</h3>
+                <p class="text-sm text-gray-500 mb-6 dark:text-gray-400">Promo spesial malam ini aktif sekarang.</p>
+                <button onclick="goToNM()" class="w-full bg-purple-600 text-white font-extrabold py-3.5 rounded-xl hover:bg-purple-700 transition active:scale-95">Lihat Promo</button>
+            </div>
+        </div>
+    </div>
+
     <header class="sticky top-0 z-50 bg-brand-bg/90 dark:bg-brand-darkBg/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -158,6 +178,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </header>
@@ -171,6 +192,7 @@
                         <div class="absolute inset-0 w-56 h-56 bg-brand-accent/5 rounded-full blur-3xl opacity-50"></div>
                         <img src="https://drive.google.com/thumbnail?sz=w600&id=1tRJSH4774NTvtcTuqTb8IExgGNwkDVEC" alt="IHFGX Logo Large" class="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
                     </div>
+                    
                     <h1 class="font-heading font-extrabold text-5xl tracking-widest mt-6 text-shimmer">IHFGX</h1>
                     <p class="font-sans font-semibold tracking-[0.4em] text-gray-500 dark:text-gray-400 uppercase text-lg mt-1">STORE</p>
                 </div>
@@ -529,7 +551,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // FUNGSI AUTO BUKA-TUTUP NIGHT MARKET (Jam 20:00 s.d 23:59 Waktu Lokal HP)
+        // FUNGSI AUTO BUKA-TUTUP NIGHT MARKET & POPUP
         function checkNightMarketTime() {
             const hour = new Date().getHours();
             const isOpen = hour >= 20 && hour <= 23; 
@@ -537,10 +559,19 @@
             const navDesktop = document.getElementById('nav-nightmarket');
             const navMobile = document.getElementById('nav-nightmarket-mob');
             const nightSection = document.getElementById('tab-nightmarket');
+            const popup = document.getElementById('nm-popup');
             
             if (isOpen) {
                 if(navDesktop) navDesktop.style.display = 'inline-block';
                 if(navMobile) navMobile.style.display = 'flex';
+                
+                // Tampilkan popup jika belum pernah dimunculkan di sesi ini
+                if (popup && !sessionStorage.getItem('nm_shown')) {
+                    setTimeout(() => {
+                        popup.classList.remove('hidden');
+                        sessionStorage.setItem('nm_shown', 'true');
+                    }, 1000); // Muncul 1 detik setelah halaman dimuat
+                }
             } else {
                 if(navDesktop) navDesktop.style.display = 'none';
                 if(navMobile) navMobile.style.display = 'none';
@@ -551,6 +582,10 @@
                 }
             }
         }
+
+        function closeNM() { document.getElementById('nm-popup').classList.add('hidden'); }
+        function goToNM() { closeNM(); switchTab('nightmarket'); }
+
         checkNightMarketTime(); // Cek saat pertama buka web
         setInterval(checkNightMarketTime, 60000); // Cek ulang setiap 1 menit
 
@@ -589,7 +624,7 @@
             }
         });
 
-        /* SCRIPT 3: PRICELIST & CUSTOM (Khusus Order Biasa) */
+        /* SCRIPT 3: PRICELIST & CUSTOM */
         function selectDropdownPackage(v) { const d = document.getElementById('nominal_package'); d.value = v; toggleCustomInput(); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         function toggleCustomInput() {
             const p = document.getElementById('nominal_package').value, c = document.getElementById('custom_order_box');
@@ -600,7 +635,6 @@
             document.getElementById('custom_price_display').textContent = "Rp " + (m * 900).toLocaleString('id-ID');
         }
 
-        /* KHUSUS DROPDOWN NIGHT MARKET */
         function selectNMPackage(v) {
             const d = document.getElementById('nm_nominal_package');
             d.value = v;
